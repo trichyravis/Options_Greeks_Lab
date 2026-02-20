@@ -23,104 +23,164 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# ─── Colour Palette ─────────────────────────────────────────────────────────
-DARK_BLUE   = "#003366"
-MID_BLUE    = "#004d80"
-LIGHT_BLUE  = "#ADD8E6"
-GOLD        = "#FFD700"
+# ─── Colour Palette — exact match to mountain_path_template.tex ─────────────
+# \definecolor{darkblue}{RGB}{0,51,102}
+# \definecolor{lightblue}{RGB}{173,216,230}
+# \definecolor{goldcolor}{RGB}{255,215,0}
+DARK_BLUE   = "#003366"          # darkblue  RGB(0,51,102)
+LIGHT_BLUE  = "#ADD8E6"          # lightblue RGB(173,216,230)
+GOLD        = "#FFD700"          # goldcolor RGB(255,215,0)
 WHITE       = "#FFFFFF"
-LIGHT_GREY  = "#f5f7fa"
+LIGHT_GREY  = "#F5F7FA"          # page background
+LIGHT_BLUE_10 = "rgba(173,216,230,0.10)"   # lightblue!10  — defnbox / insightbox bg
+YELLOW_5      = "rgba(255,255,0,0.05)"      # yellow!5      — examplebox bg
+GOLD_20       = "rgba(255,215,0,0.20)"      # goldcolor!20  — summarybox bg
+LIGHT_BLUE_20 = "rgba(173,216,230,0.20)"   # lightblue!20  — author credential box
 
-# ─── Custom CSS ─────────────────────────────────────────────────────────────
+# ─── Custom CSS — mirrors mountain_path_template.tex box styles exactly ──────
 st.markdown(f"""
 <style>
-  /* Global */
-  .stApp {{ background: {LIGHT_GREY}; }}
+  /* ── Global ── */
+  .stApp {{ background: {LIGHT_GREY}; font-family: 'Times New Roman', Times, serif; }}
 
-  /* Hero Header */
+  /* ── Hero Header — mirrors title page darkblue tcolorbox ── */
   .hero {{
-    background: linear-gradient(135deg, {DARK_BLUE} 0%, {MID_BLUE} 60%, #0077b6 100%);
-    padding: 2rem 2.5rem 1.5rem;
-    border-radius: 14px;
-    margin-bottom: 1.5rem;
-    border-left: 6px solid {GOLD};
+    background: {DARK_BLUE};
+    padding: 1.8rem 2.5rem 1.6rem;
+    border-radius: 5px;
+    margin-bottom: 1.4rem;
   }}
-  .hero h1 {{ color: {WHITE}; font-size: 2.1rem; margin: 0; font-weight: 700; }}
-  .hero .sub  {{ color: {LIGHT_BLUE}; font-size: 1rem; margin-top: 0.4rem; }}
+  .hero .brand  {{ color: {GOLD}; font-size: 0.82rem; font-weight: 700;
+                   letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.3rem; }}
+  .hero h1 {{ color: {WHITE}; font-size: 2rem; margin: 0; font-weight: 700;
+              font-family: 'Times New Roman', Times, serif; }}
+  .hero .sub  {{ color: {LIGHT_BLUE}; font-size: 0.95rem; margin-top: 0.35rem;
+                 font-style: italic; }}
   .hero .badge {{
     display: inline-block; background: {GOLD}; color: {DARK_BLUE};
-    padding: 3px 12px; border-radius: 20px; font-size: 0.8rem;
-    font-weight: 700; margin-top: 0.6rem;
+    padding: 2px 12px; border-radius: 3px; font-size: 0.78rem;
+    font-weight: 700; margin-top: 0.7rem; letter-spacing: 0.04em;
   }}
 
-  /* Metric Cards */
-  .metric-row {{ display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.2rem; }}
+  /* ── Metric Cards ── */
+  .metric-row {{ display: flex; gap: 0.9rem; flex-wrap: wrap; margin-bottom: 1.2rem; }}
   .metric-card {{
-    background: {WHITE}; border-radius: 10px; padding: 1rem 1.4rem;
-    flex: 1; min-width: 130px; border-top: 4px solid {DARK_BLUE};
-    box-shadow: 0 2px 8px rgba(0,51,102,0.09);
+    background: {WHITE}; border-radius: 3px; padding: 0.9rem 1.2rem;
+    flex: 1; min-width: 125px; border-top: 4px solid {DARK_BLUE};
+    border: 1px solid {DARK_BLUE}; border-top-width: 4px;
+    box-shadow: 0 1px 4px rgba(0,51,102,0.08);
   }}
-  .metric-card.gold {{ border-top-color: {GOLD}; }}
-  .metric-card.blue {{ border-top-color: {LIGHT_BLUE}; }}
-  .metric-card h4 {{ color: #666; font-size: 0.78rem; margin: 0; text-transform: uppercase; letter-spacing: .06em; }}
-  .metric-card .val {{ color: {DARK_BLUE}; font-size: 1.55rem; font-weight: 700; margin: 0.2rem 0 0; }}
-  .metric-card .sub {{ color: #888; font-size: 0.72rem; }}
+  .metric-card.gold {{ border-top-color: {GOLD}; border-top-width: 4px; }}
+  .metric-card.blue {{ border-top-color: {LIGHT_BLUE}; border-top-width: 4px; }}
+  .metric-card h4 {{ color: #555; font-size: 0.75rem; margin: 0;
+                     text-transform: uppercase; letter-spacing: .07em;
+                     font-family: 'Times New Roman', serif; }}
+  .metric-card .val {{ color: {DARK_BLUE}; font-size: 1.45rem; font-weight: 700;
+                        margin: 0.2rem 0 0; font-family: 'Times New Roman', serif; }}
+  .metric-card .sub {{ color: #777; font-size: 0.7rem; }}
 
-  /* Section Headers */
+  /* ── Section Headers — matches \titleformat section darkblue bold ── */
   .section-title {{
-    color: {DARK_BLUE}; font-size: 1.15rem; font-weight: 700;
-    border-left: 4px solid {GOLD}; padding-left: 0.7rem; margin: 1.5rem 0 0.8rem;
+    color: {DARK_BLUE}; font-size: 1.12rem; font-weight: 700;
+    font-family: 'Times New Roman', serif;
+    border-bottom: 0.5pt solid {DARK_BLUE};
+    padding-bottom: 4px; margin: 1.4rem 0 0.7rem;
   }}
 
-  /* Info Boxes */
-  .info-box {{
-    background: #e8f4f8; border-left: 4px solid {MID_BLUE};
-    padding: 0.8rem 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1rem;
-    font-size: 0.88rem; color: #1a3a5c;
+  /* ── DEFNBOX: lightblue!10 bg, darkblue frame, darkblue title bar with white text ── */
+  .defnbox {{
+    background: {LIGHT_BLUE_10}; border: 1pt solid {DARK_BLUE};
+    border-radius: 3px; margin-bottom: 1rem; overflow: hidden;
   }}
-  .formula-box {{
-    background: #fff9e6; border-left: 4px solid {GOLD};
-    padding: 0.8rem 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1rem;
-    font-size: 0.88rem; color: #4a3800; font-family: 'Courier New', monospace;
+  .defnbox .box-title {{
+    background: {DARK_BLUE}; color: {WHITE};
+    padding: 5px 10px; font-weight: 700; font-size: 0.85rem;
+    font-family: 'Times New Roman', serif;
+  }}
+  .defnbox .box-body {{
+    padding: 8px 10px; font-size: 0.88rem;
+    color: #1a1a2e; font-family: 'Times New Roman', serif; line-height: 1.6;
   }}
 
-  /* Footer */
+  /* ── EXAMPLEBOX: yellow!5 bg, goldcolor frame, darkblue title text ── */
+  .examplebox {{
+    background: {YELLOW_5}; border: 1pt solid {GOLD};
+    border-radius: 3px; margin-bottom: 1rem; overflow: hidden;
+  }}
+  .examplebox .box-title {{
+    background: transparent; color: {DARK_BLUE};
+    padding: 5px 10px; font-weight: 700; font-size: 0.85rem;
+    font-family: 'Times New Roman', serif;
+    border-bottom: 1px solid {GOLD};
+  }}
+  .examplebox .box-body {{
+    padding: 8px 10px; font-size: 0.88rem;
+    color: #3a3000; font-family: 'Times New Roman', serif; line-height: 1.6;
+  }}
+
+  /* ── INSIGHTBOX: same as defnbox (lightblue!10, darkblue) ── */
+  .insightbox {{
+    background: {LIGHT_BLUE_10}; border: 1pt solid {DARK_BLUE};
+    border-radius: 3px; margin-bottom: 1rem; overflow: hidden;
+  }}
+  .insightbox .box-title {{
+    background: {DARK_BLUE}; color: {WHITE};
+    padding: 5px 10px; font-weight: 700; font-size: 0.85rem;
+    font-family: 'Times New Roman', serif;
+  }}
+  .insightbox .box-body {{
+    padding: 8px 10px; font-size: 0.88rem;
+    color: #1a1a2e; font-family: 'Times New Roman', serif; line-height: 1.6;
+  }}
+
+  /* ── SUMMARYBOX: goldcolor!20 bg, darkblue frame, darkblue title text ── */
+  .summarybox {{
+    background: {GOLD_20}; border: 1pt solid {DARK_BLUE};
+    border-radius: 3px; margin-bottom: 1rem; overflow: hidden;
+  }}
+  .summarybox .box-title {{
+    background: transparent; color: {DARK_BLUE};
+    padding: 5px 10px; font-weight: 700; font-size: 0.85rem;
+    font-family: 'Times New Roman', serif;
+    border-bottom: 1px solid {DARK_BLUE};
+  }}
+  .summarybox .box-body {{
+    padding: 8px 10px; font-size: 0.88rem;
+    color: #1a1a2e; font-family: 'Times New Roman', serif; line-height: 1.6;
+  }}
+
+  /* ── Footer — matches fancyfoot: Prof. V. Ravichandran left, page right ── */
   .footer {{
-    text-align: center; padding: 1.2rem; color: #666; font-size: 0.78rem;
-    border-top: 1px solid #ddd; margin-top: 2rem;
+    text-align: left; padding: 0.8rem 0; color: {DARK_BLUE}; font-size: 0.78rem;
+    border-top: 0.5pt solid {DARK_BLUE}; margin-top: 2rem;
+    font-family: 'Times New Roman', serif; display: flex;
+    justify-content: space-between;
   }}
-  .footer span {{ color: {DARK_BLUE}; font-weight: 600; }}
 
-  /* Sidebar */
+  /* ── Sidebar — darkblue background ── */
   section[data-testid="stSidebar"] {{
     background: {DARK_BLUE} !important;
   }}
   section[data-testid="stSidebar"] * {{ color: {WHITE} !important; }}
-  section[data-testid="stSidebar"] .stSlider > div {{ color: {WHITE} !important; }}
   section[data-testid="stSidebar"] h3 {{
-    color: {GOLD} !important; border-bottom: 1px solid rgba(255,215,0,0.3);
-    padding-bottom: 0.4rem;
+    color: {GOLD} !important;
+    border-bottom: 0.5px solid rgba(255,215,0,0.4);
+    padding-bottom: 0.4rem; font-family: 'Times New Roman', serif !important;
   }}
-  .sidebar-label {{
-    color: {LIGHT_BLUE} !important; font-size: 0.78rem;
-    text-transform: uppercase; letter-spacing: .05em;
-  }}
-  div[data-testid="stSelectbox"] label {{ color: {WHITE} !important; }}
 
-  /* Tab Styling */
-  .stTabs [data-baseweb="tab-list"] {{ gap: 6px; }}
+  /* ── Tabs ── */
+  .stTabs [data-baseweb="tab-list"] {{ gap: 4px; }}
   .stTabs [data-baseweb="tab"] {{
-    background: {WHITE}; border-radius: 8px 8px 0 0;
-    color: {DARK_BLUE}; font-weight: 600; padding: 0.5rem 1.2rem;
-    border: 1px solid #ddd;
+    background: {WHITE}; border-radius: 3px 3px 0 0;
+    color: {DARK_BLUE}; font-weight: 700; padding: 0.45rem 1.1rem;
+    border: 1px solid {DARK_BLUE}; font-family: 'Times New Roman', serif;
   }}
   .stTabs [aria-selected="true"] {{
     background: {DARK_BLUE} !important; color: {GOLD} !important;
     border-color: {DARK_BLUE} !important;
   }}
 
-  /* DataFrame */
-  .dataframe {{ font-size: 0.85rem !important; }}
+  .dataframe {{ font-size: 0.84rem !important; font-family: 'Times New Roman', serif !important; }}
 </style>
 """, unsafe_allow_html=True)
 
@@ -222,10 +282,11 @@ moneyness = S / K
 # ─── Hero Header ─────────────────────────────────────────────────────────────
 st.markdown(f"""
 <div class="hero">
-  <h1>⚡ Options Greeks Lab</h1>
-  <div class="sub">Black-Scholes-Merton Framework · 3D Greek Surfaces · P&L Simulation · Sensitivity Analysis</div>
-  <span class="badge">LIVE LAB</span>&nbsp;
-  <span class="badge" style="background:#e8f4f8;color:{DARK_BLUE};">The Mountain Path · World of Finance</span>
+  <div class="brand">THE MOUNTAIN PATH &nbsp;·&nbsp; World of Finance</div>
+  <h1>Options Pricing &amp; Greeks Lab</h1>
+  <div class="sub">Black-Scholes-Merton Framework &nbsp;·&nbsp; 3D Greek Surfaces &nbsp;·&nbsp; P&amp;L Simulation &nbsp;·&nbsp; Sensitivity Analysis</div>
+  <span class="badge">LIVE LAB</span>&nbsp;&nbsp;
+  <span class="badge" style="background:rgba(173,216,230,0.22);color:#ADD8E6;">Financial Derivatives Track</span>
 </div>
 """, unsafe_allow_html=True)
 
@@ -330,11 +391,7 @@ with tab1:
     st.plotly_chart(fig1, use_container_width=True)
 
     st.markdown(f"""
-    <div class="info-box">
-    🏔 <b>Reading the chart:</b> Vertical grey dotted line = current spot (₹{S}).
-    Gold dashed line = strike (₹{K}).
-    Greeks are computed live using the Black-Scholes-Merton model.
-    </div>
+    <div class="insightbox"><div class="box-title">Key Insight: Reading the Chart</div><div class="box-body">Vertical grey dotted line = current spot (₹{S}). Gold dashed line = strike (₹{K}). Greeks are computed live using the Black-Scholes-Merton model.</div></div>
     """, unsafe_allow_html=True)
 
     # Greek vs Vol & Time profiles side by side
@@ -419,7 +476,7 @@ with tab2:
     fig3d = go.Figure(data=[go.Surface(
         x=XX, y=YY, z=ZZ,
         colorscale=[
-            [0.0, DARK_BLUE], [0.25, MID_BLUE], [0.5, "#0099cc"],
+            [0.0, DARK_BLUE], [0.25, DARK_BLUE], [0.5, "#0099cc"],
             [0.75, LIGHT_BLUE], [1.0, GOLD]
         ],
         contours=dict(
@@ -455,9 +512,7 @@ with tab2:
         "price": "The option price surface shows intrinsic + time value across spot and time dimensions.",
     }
     st.markdown(f"""
-    <div class="info-box">
-    <b>📐 {surface_greek.title()} Insight:</b> {greek_insights.get(surface_greek, "")}
-    </div>
+    <div class="insightbox"><div class="box-title">Key Insight: {surface_greek.title()}</div><div class="box-body">{greek_insights.get(surface_greek, "")}</div></div>
     """, unsafe_allow_html=True)
 
 
@@ -482,7 +537,7 @@ with tab3:
     horizons = [T_days, int(T_days*0.75), int(T_days*0.5), int(T_days*0.25), 1]
     horizons = sorted(set([max(1,h) for h in horizons if h > 0]), reverse=True)
     alphas   = [1.0, 0.75, 0.55, 0.38, 0.22]
-    blues    = [DARK_BLUE, MID_BLUE, "#0077b6", "#0096c7", "#00b4d8"]
+    blues    = [DARK_BLUE, DARK_BLUE, "#0077b6", "#0096c7", "#00b4d8"]
 
     for idx, (h, al, bl) in enumerate(zip(horizons, alphas, blues)):
         prices_h = []
@@ -638,51 +693,42 @@ with tab5:
     col1, col2 = st.columns([1,1])
     with col1:
         st.markdown("""
-        <div class="formula-box">
-        <b>BSM Call Price:</b><br>
-        C = S·N(d₁) − K·e^{−rT}·N(d₂)<br><br>
-        <b>BSM Put Price:</b><br>
-        P = K·e^{−rT}·N(−d₂) − S·N(−d₁)<br><br>
+        <div class="defnbox"><div class="box-title">BSM Pricing Formulae</div><div class="box-body">
+        <b>Call:</b> C = S·N(d₁) − K·e<sup>−rT</sup>·N(d₂)<br>
+        <b>Put:</b>  P = K·e<sup>−rT</sup>·N(−d₂) − S·N(−d₁)<br><br>
         <b>d₁</b> = [ln(S/K) + (r + σ²/2)T] / (σ√T)<br>
         <b>d₂</b> = d₁ − σ√T
-        </div>
+        </div></div>
         """, unsafe_allow_html=True)
 
         st.markdown("""
-        <div class="formula-box">
-        <b>Greeks Formulae:</b><br>
-        Δ_call = N(d₁)    |   Δ_put = N(d₁) − 1<br>
-        Γ      = φ(d₁) / (S·σ·√T)<br>
-        ν      = S·φ(d₁)·√T / 100<br>
-        Θ_call = −[S·φ(d₁)·σ/(2√T) + rK·e^{−rT}·N(d₂)] / 365<br>
-        ρ_call = K·T·e^{−rT}·N(d₂) / 100
-        </div>
+        <div class="defnbox"><div class="box-title">Greeks Formulae</div><div class="box-body">
+        Δ<sub>call</sub> = N(d₁) &nbsp;|&nbsp; Δ<sub>put</sub> = N(d₁) − 1<br>
+        Γ = φ(d₁) / (S·σ·√T)<br>
+        ν = S·φ(d₁)·√T / 100<br>
+        Θ<sub>call</sub> = −[S·φ(d₁)·σ/(2√T) + rK·e<sup>−rT</sup>·N(d₂)] / 365<br>
+        ρ<sub>call</sub> = K·T·e<sup>−rT</sup>·N(d₂) / 100
+        </div></div>
         """, unsafe_allow_html=True)
 
     with col2:
         st.markdown("""
-        <div class="info-box">
-        <b>Model Assumptions:</b><br>
+        <div class="insightbox"><div class="box-title">Model Assumptions</div><div class="box-body">
         • Continuous trading; no transaction costs<br>
         • Constant volatility (σ) and risk-free rate (r)<br>
         • No dividends on underlying<br>
         • European-style option (exercise at expiry only)<br>
         • Log-normal distribution of returns<br>
         • No arbitrage conditions hold
-        </div>
+        </div></div>
         """, unsafe_allow_html=True)
 
         st.markdown("""
-        <div class="info-box">
-        <b>Put-Call Parity:</b><br>
-        C − P = S − K·e^{−rT}<br><br>
-        <b>Delta-Hedging:</b><br>
-        A delta-neutral portfolio: −1 option + Δ shares of stock<br>
-        Requires continuous rebalancing as S and t change.<br><br>
-        <b>Greeks Risk Management:</b><br>
-        Delta: directional risk | Gamma: convexity risk<br>
-        Vega: vol risk | Theta: time decay | Rho: rate risk
-        </div>
+        <div class="insightbox"><div class="box-title">Key Identities &amp; Risk Management</div><div class="box-body">
+        <b>Put-Call Parity:</b> C − P = S − K·e<sup>−rT</sup><br><br>
+        <b>Delta-Hedging:</b> A delta-neutral portfolio holds −1 option + Δ shares. Requires continuous rebalancing as S and t change.<br><br>
+        <b>Greeks Summary:</b> Delta = directional risk | Gamma = convexity | Vega = vol sensitivity | Theta = time decay | Rho = rate risk
+        </div></div>
         """, unsafe_allow_html=True)
 
     # Greek quick-reference table
@@ -711,12 +757,9 @@ with tab5:
 
     st.markdown('<div class="section-title">Volatility Smile & Surface</div>', unsafe_allow_html=True)
     st.markdown("""
-    <div class="info-box">
-    <b>Volatility Smile:</b> In practice, BSM's assumption of constant vol breaks down.
-    OTM options (especially puts) trade at higher implied volatility — this creates a
-    "volatility smile" (equity markets often show a "smirk" or skew, with higher IV for
-    low strikes). The full 3D plot of IV vs. Strike and Maturity is the <b>Volatility Surface</b>.
-    </div>
+    <div class="insightbox"><div class="box-title">Key Insight: Volatility Smile</div><div class="box-body">
+    In practice, BSM's assumption of constant volatility breaks down. OTM options (especially puts) trade at higher implied volatility — creating a "volatility smile." Equity markets show a negative skew ("smirk") with higher IV for low strikes. The full 3D plot of IV vs. Strike and Maturity is the <b>Volatility Surface</b>.
+    </div></div>
     """, unsafe_allow_html=True)
 
     # Simulated vol smile
@@ -744,9 +787,8 @@ with tab5:
 # ─── Footer ───────────────────────────────────────────────────────────────────
 st.markdown(f"""
 <div class="footer">
-  <span>Prof. V. Ravichandran</span> · 28+ Years Corporate Finance & Banking ·
-  10+ Years Academic Excellence<br>
-  <span>The Mountain Path — World of Finance</span> · Options Greeks Lab ·
-  Black-Scholes-Merton Framework
+  <span style="color:#003366;font-weight:700;">Prof. V. Ravichandran</span>
+  &nbsp;·&nbsp; 28+ Years Corporate Finance &amp; Banking &nbsp;·&nbsp; 10+ Years Academic Excellence
+  <span style="color:#003366;font-weight:700;">The Mountain Path — World of Finance</span>
 </div>
 """, unsafe_allow_html=True)
