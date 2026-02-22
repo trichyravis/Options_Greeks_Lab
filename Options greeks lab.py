@@ -440,17 +440,99 @@ for col, (lbl, val, sub) in zip(cols, metrics_data):
         metric_card(lbl, val, sub)
 
 # ============================================================================
-# TABS
+# ROW 1 TABS — Analytical Tools (5 tabs)
 # ============================================================================
-tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
+st.markdown(f"""
+<div style="margin-bottom:-1rem;">
+    <p style="color:{COLORS['text_secondary']};font-size:0.72rem;letter-spacing:1.5px;
+              text-transform:uppercase;margin:0 0 0.3rem;font-weight:600;">
+        📊 Analytics & Modelling
+    </p>
+</div>""", unsafe_allow_html=True)
+
+tab1, tab2, tab3, tab4, tab5 = st.tabs([
     "📈 Greek Profiles",
     "🌐 3D Surfaces",
     "💰 P&L Simulation",
     "📊 Sensitivity Table",
     "📚 Theory & Formulae",
-    "🗺️ About & User Guide",
-    "🎓 Greek Education Hub",
 ])
+
+# ============================================================================
+# ROW 2 TABS — Reference & Education (3 tabs, styled radio as tab row)
+# ============================================================================
+st.markdown(f"""
+<div style="margin-top:1.2rem;margin-bottom:-0.5rem;">
+    <p style="color:{COLORS['text_secondary']};font-size:0.72rem;letter-spacing:1.5px;
+              text-transform:uppercase;margin:0 0 0.3rem;font-weight:600;">
+        📖 Reference, Education & Guides
+    </p>
+</div>""", unsafe_allow_html=True)
+
+# Styled radio as second tab row
+st.markdown(f"""
+<style>
+    div[data-testid="stHorizontalBlock"] div[data-testid="stRadio"] > div {{
+        display: flex; flex-direction: row; gap: 8px; flex-wrap: wrap;
+    }}
+    div[data-testid="stHorizontalBlock"] div[data-testid="stRadio"] label {{
+        background: {COLORS['card_bg']};
+        border: 1px solid rgba(255,215,0,0.3);
+        border-radius: 8px;
+        padding: 0.45rem 1rem;
+        color: {COLORS['text_primary']} !important;
+        font-size: 0.88rem;
+        cursor: pointer;
+        transition: all 0.2s;
+    }}
+    div[data-testid="stHorizontalBlock"] div[data-testid="stRadio"] label:hover {{
+        background: rgba(0,51,102,0.6);
+        border-color: {COLORS['accent_gold']};
+    }}
+    /* Radio row — hide the actual radio dot */
+    div[data-testid="stRadio"] [data-testid="stWidgetLabel"] {{
+        display: none;
+    }}
+    div[data-testid="stRadio"] > div[role="radiogroup"] {{
+        flex-direction: row !important;
+        gap: 8px;
+        flex-wrap: wrap;
+    }}
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label {{
+        background: {COLORS['card_bg']} !important;
+        border: 1px solid rgba(255,215,0,0.3) !important;
+        border-radius: 8px !important;
+        padding: 0.45rem 1.1rem !important;
+        color: {COLORS['text_primary']} !important;
+        font-size: 0.88rem !important;
+        cursor: pointer !important;
+        margin: 0 !important;
+        min-height: unset !important;
+    }}
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label[data-selected="true"],
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label:has(input:checked) {{
+        background: {COLORS['dark_blue']} !important;
+        border: 2px solid {COLORS['accent_gold']} !important;
+        color: {COLORS['accent_gold']} !important;
+        font-weight: 600 !important;
+    }}
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label > div > p {{
+        color: inherit !important;
+        font-size: 0.88rem !important;
+    }}
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label > div:first-child {{
+        display: none !important;
+    }}
+</style>
+""", unsafe_allow_html=True)
+
+row2_tab = st.radio(
+    "Reference Tabs",
+    ["🗺️ About & User Guide", "🎓 Greek Education Hub", "📊 Excel Formula Guide"],
+    horizontal=True,
+    label_visibility="collapsed",
+    key="row2_tabs"
+)
 
 # ──────────────────────── TAB 1: GREEK PROFILES ───────────────────────────
 with tab1:
@@ -774,9 +856,9 @@ print(f"Price: ₹{res['price']:.2f}  |  Delta: {res['delta']:.4f}  |  Vega: {re
     st.dataframe(excel_df, use_container_width=True, hide_index=True)
 
 # ══════════════════════════════════════════════════════════════════════════
-# TAB 6: ABOUT & USER GUIDE
+# ROW 2 — TAB A: ABOUT & USER GUIDE
 # ══════════════════════════════════════════════════════════════════════════
-with tab6:
+if row2_tab == "🗺️ About & User Guide":
     # ── Platform Hero ──────────────────────────────────────────────────
     st.markdown(f"""
     <div style="background: linear-gradient(135deg, {COLORS['dark_blue']}, {COLORS['medium_blue']}, #1a3a5c);
@@ -1067,9 +1149,9 @@ with tab6:
 
 
 # ══════════════════════════════════════════════════════════════════════════
-# TAB 7: EDUCATIONAL PLATFORM — OPTIONS GREEKS IN DETAIL
+# ROW 2 — TAB B: EDUCATIONAL PLATFORM — OPTIONS GREEKS IN DETAIL
 # ══════════════════════════════════════════════════════════════════════════
-with tab7:
+if row2_tab == "🎓 Greek Education Hub":
 
     st.markdown(f"""
     <div style="background: linear-gradient(135deg, {COLORS['dark_blue']}, {COLORS['medium_blue']});
@@ -1702,6 +1784,466 @@ with tab7:
         and the volatility trading decision (realised vol vs implied vol).
         </div>
         """, unsafe_allow_html=True)
+
+# ══════════════════════════════════════════════════════════════════════════
+# ROW 2 — TAB C: EXCEL FORMULA GUIDE
+# ══════════════════════════════════════════════════════════════════════════
+if row2_tab == "📊 Excel Formula Guide":
+
+    st.markdown(f"""
+    <div style="background:linear-gradient(135deg,{COLORS['dark_blue']},{COLORS['medium_blue']});
+                border:2px solid {COLORS['accent_gold']};border-radius:14px;
+                padding:2rem;margin-bottom:1.5rem;text-align:center;">
+        <div style="font-size:3.5rem;margin-bottom:0.4rem;">📊</div>
+        <h1 style="color:{COLORS['accent_gold']};font-family:'Playfair Display',serif;margin:0.2rem 0;">
+            Excel Formula Reference Guide</h1>
+        <p style="color:{COLORS['light_blue']};font-size:0.95rem;margin:0.6rem 0 0;">
+            Complete BSM Option Pricing · All Five Greeks · Ready-to-paste Excel formulas
+        </p>
+        <p style="color:{COLORS['text_secondary']};font-size:0.82rem;margin:0.4rem 0 0;">
+            For NIFTY / BANK NIFTY · MBA · CFA · FRM exam preparation
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # ── Setup convention ────────────────────────────────────────────────
+    section_title("🗂️ Spreadsheet Setup — Named Cell Convention")
+    st.markdown(f"""
+    <div class="info-box">
+        <h4 style="color:{COLORS['accent_gold']};margin-top:0;">Recommended Cell Mapping (Sheet: <i>Inputs</i>)</h4>
+        <p style="color:{COLORS['text_primary']};margin:0 0 0.6rem;line-height:1.8;">
+        Create an <b>Inputs</b> sheet with these named cells. All formula sheets reference them by name for
+        easy what-if analysis. In Excel: select cell → Name Box (top-left) → type the name → Enter.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    setup_df = pd.DataFrame([
+        {"Cell":"B2","Named Range":"S_price",  "Description":"Spot / Current Market Price (₹)","Example":"22500"},
+        {"Cell":"B3","Named Range":"K_strike", "Description":"Strike Price (₹)","Example":"23000"},
+        {"Cell":"B4","Named Range":"T_years",  "Description":"Time to Expiry in Years (= days/365)","Example":"=B4_days/365"},
+        {"Cell":"B4a","Named Range":"T_days",  "Description":"Days to Expiry (enter here)","Example":"30"},
+        {"Cell":"B5","Named Range":"r_rate",   "Description":"Risk-Free Rate (decimal, e.g. 6.5% = 0.065)","Example":"0.065"},
+        {"Cell":"B6","Named Range":"sigma",    "Description":"Volatility / India VIX (decimal, e.g. 18% = 0.18)","Example":"0.18"},
+        {"Cell":"B7","Named Range":"lot_size", "Description":"Lot Size (NIFTY=50, BANKNIFTY=15, FINNIFTY=40)","Example":"50"},
+    ])
+    st.dataframe(setup_df, use_container_width=True, hide_index=True)
+
+    # ── d1 and d2 ────────────────────────────────────────────────────────
+    section_title("📐 Step 1 — Compute d₁ and d₂")
+    st.markdown(f"""
+    <div class="info-box">
+        <h4 style="color:{COLORS['accent_gold']};margin-top:0;">d₁ and d₂ — The Core BSM Intermediate Values</h4>
+        <p style="color:{COLORS['text_primary']};line-height:1.8;margin:0 0 0.5rem;">
+        Every option price and Greek derives from these two values. Calculate them first in dedicated cells
+        (e.g., D2 and D3), then reference them in all subsequent formulas.</p>
+        <div style="background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.3);border-radius:6px;
+                    padding:0.6rem 1rem;font-family:'Courier New',monospace;font-size:0.85rem;
+                    color:{COLORS['light_blue']};margin:0.5rem 0;">
+            d₁ = [ln(S/K) + (r + σ²/2)·T] / (σ·√T)<br>
+            d₂ = d₁ − σ·√T
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    d1d2_df = pd.DataFrame([
+        {
+            "Cell":"D2","Label":"d1",
+            "Excel Formula":"=(LN(S_price/K_strike)+(r_rate+0.5*sigma^2)*T_years)/(sigma*SQRT(T_years))",
+            "Live Value":f"{res['d1']:.6f}",
+            "Notes":"LN() = natural log. SQRT() for square root."
+        },
+        {
+            "Cell":"D3","Label":"d2",
+            "Excel Formula":"=D2 - sigma*SQRT(T_years)",
+            "Live Value":f"{res['d2']:.6f}",
+            "Notes":"References D2 (d1) directly. Or: =D2-sigma*SQRT(T_years)"
+        },
+        {
+            "Cell":"D4","Label":"N(d1)",
+            "Excel Formula":"=NORM.S.DIST(D2,TRUE)",
+            "Live Value":f"{norm.cdf(res['d1']):.6f}",
+            "Notes":"Cumulative standard normal CDF at d1"
+        },
+        {
+            "Cell":"D5","Label":"N(d2)",
+            "Excel Formula":"=NORM.S.DIST(D3,TRUE)",
+            "Live Value":f"{norm.cdf(res['d2']):.6f}",
+            "Notes":"Cumulative standard normal CDF at d2"
+        },
+        {
+            "Cell":"D6","Label":"N(-d1)",
+            "Excel Formula":"=NORM.S.DIST(-D2,TRUE)",
+            "Live Value":f"{norm.cdf(-res['d1']):.6f}",
+            "Notes":"Used in put pricing and Delta"
+        },
+        {
+            "Cell":"D7","Label":"N(-d2)",
+            "Excel Formula":"=NORM.S.DIST(-D3,TRUE)",
+            "Live Value":f"{norm.cdf(-res['d2']):.6f}",
+            "Notes":"Used in put pricing and Rho"
+        },
+        {
+            "Cell":"D8","Label":"φ(d1) — PDF",
+            "Excel Formula":"=NORM.S.DIST(D2,FALSE)",
+            "Live Value":f"{norm.pdf(res['d1']):.6f}",
+            "Notes":"Standard normal PDF (FALSE = density, not cumulative). Used in all Greeks."
+        },
+        {
+            "Cell":"D9","Label":"e^(-rT)",
+            "Excel Formula":"=EXP(-r_rate*T_years)",
+            "Live Value":f"{np.exp(-r*T):.6f}",
+            "Notes":"Discount factor. EXP() in Excel = e^x"
+        },
+    ])
+    st.dataframe(d1d2_df, use_container_width=True, hide_index=True)
+
+    # ── Option Pricing ───────────────────────────────────────────────────
+    section_title("💰 Step 2 — Option Pricing Formulas")
+
+    st.markdown(f"""
+    <div class="info-box">
+        <h4 style="color:{COLORS['accent_gold']};margin-top:0;">BSM Option Price Formulas</h4>
+        <p style="color:{COLORS['text_primary']};line-height:1.8;margin:0 0 0.5rem;">
+        <b>Call:</b> C = S·N(d₁) − K·e<sup>−rT</sup>·N(d₂)<br>
+        <b>Put:</b> P = K·e<sup>−rT</sup>·N(−d₂) − S·N(−d₁)<br><br>
+        All cells below assume d1=D2, d2=D3, N(d1)=D4, N(d2)=D5, N(-d1)=D6, N(-d2)=D7, e^(-rT)=D9</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    pricing_df = pd.DataFrame([
+        {
+            "Output":"Call Price (C)","Cell":"E2",
+            "Excel Formula":"=S_price*D4 - K_strike*D9*D5",
+            "Live Value (₹)":f"₹{bsm(S,K,T,r,sigma,'call')['price']:.4f}",
+            "Breakdown":"S·N(d₁) − K·e⁻ʳᵀ·N(d₂)"
+        },
+        {
+            "Output":"Put Price (P)","Cell":"E3",
+            "Excel Formula":"=K_strike*D9*D7 - S_price*D6",
+            "Live Value (₹)":f"₹{bsm(S,K,T,r,sigma,'put')['price']:.4f}",
+            "Breakdown":"K·e⁻ʳᵀ·N(−d₂) − S·N(−d₁)"
+        },
+        {
+            "Output":"Put-Call Parity Check","Cell":"E4",
+            "Excel Formula":"=E2 - E3 - S_price + K_strike*D9",
+            "Live Value (₹)":"≈ 0.0000",
+            "Breakdown":"C − P − S + K·e⁻ʳᵀ must = 0 (arbitrage check)"
+        },
+        {
+            "Output":"Intrinsic Value (Call)","Cell":"E5",
+            "Excel Formula":"=MAX(S_price-K_strike,0)",
+            "Live Value (₹)":f"₹{max(S-K,0):.2f}",
+            "Breakdown":"Payoff if exercised immediately"
+        },
+        {
+            "Output":"Intrinsic Value (Put)","Cell":"E6",
+            "Excel Formula":"=MAX(K_strike-S_price,0)",
+            "Live Value (₹)":f"₹{max(K-S,0):.2f}",
+            "Breakdown":"Payoff if exercised immediately"
+        },
+        {
+            "Output":"Time Value (Call)","Cell":"E7",
+            "Excel Formula":"=E2 - E5",
+            "Live Value (₹)":f"₹{bsm(S,K,T,r,sigma,'call')['price']-max(S-K,0):.4f}",
+            "Breakdown":"Option Price − Intrinsic Value"
+        },
+        {
+            "Output":"Breakeven (Call)","Cell":"E8",
+            "Excel Formula":"=K_strike + E2",
+            "Live Value (₹)":f"₹{K+bsm(S,K,T,r,sigma,'call')['price']:.2f}",
+            "Breakdown":"Strike + Call Premium"
+        },
+        {
+            "Output":"Breakeven (Put)","Cell":"E9",
+            "Excel Formula":"=K_strike - E3",
+            "Live Value (₹)":f"₹{K-bsm(S,K,T,r,sigma,'put')['price']:.2f}",
+            "Breakdown":"Strike − Put Premium"
+        },
+    ])
+    st.dataframe(pricing_df, use_container_width=True, hide_index=True)
+
+    # ── Greeks ────────────────────────────────────────────────────────────
+    section_title("🧮 Step 3 — All Five Greeks Formulas")
+
+    col_g1, col_g2 = st.columns([1,1])
+
+    with col_g1:
+        st.markdown(f"""
+        <div style="background:{COLORS['card_bg']};border:1px solid rgba(255,215,0,0.3);
+                    border-left:4px solid {COLORS['accent_gold']};border-radius:10px;padding:1.2rem;margin-bottom:1rem;">
+            <h4 style="color:{COLORS['accent_gold']};margin-top:0;font-family:'Playfair Display',serif;">
+                Δ Delta</h4>
+            <p style="color:{COLORS['text_secondary']};font-size:0.8rem;margin:0 0 0.3rem;">
+                Rate of change of option price per ₹1 move in spot</p>
+            <div style="background:rgba(0,0,0,0.3);border-radius:6px;padding:0.7rem;
+                        font-family:'Courier New',monospace;font-size:0.78rem;color:{COLORS['light_blue']};
+                        margin:0.5rem 0;">
+                <b style="color:{COLORS['accent_gold']};">Call Δ (cell F2):</b><br>
+                =NORM.S.DIST(D2,TRUE)<br><br>
+                <b style="color:{COLORS['accent_gold']};">Put Δ (cell F3):</b><br>
+                =NORM.S.DIST(D2,TRUE)-1<br><br>
+                <b style="color:{COLORS['text_secondary']};font-size:0.72rem;">
+                Or: =F2 - 1 &nbsp;(Put-Call Parity)</b>
+            </div>
+            <p style="color:{COLORS['text_primary']};font-size:0.8rem;margin:0.4rem 0 0;">
+                Live: Call Δ = <b style="color:{COLORS['accent_gold']};">{res['delta']:.4f}</b>
+                &nbsp;|&nbsp; Put Δ = <b style="color:{COLORS['danger']};">{res['delta']-1:.4f}</b></p>
+            <p style="color:{COLORS['text_secondary']};font-size:0.75rem;margin:0.2rem 0 0;">
+                Range: Call [0,1] · Put [−1,0] · ATM ≈ ±0.50</p>
+        </div>
+
+        <div style="background:{COLORS['card_bg']};border:1px solid rgba(173,216,230,0.3);
+                    border-left:4px solid {COLORS['light_blue']};border-radius:10px;padding:1.2rem;margin-bottom:1rem;">
+            <h4 style="color:{COLORS['light_blue']};margin-top:0;font-family:'Playfair Display',serif;">
+                Γ Gamma</h4>
+            <p style="color:{COLORS['text_secondary']};font-size:0.8rem;margin:0 0 0.3rem;">
+                Rate of change of Delta (same for calls and puts)</p>
+            <div style="background:rgba(0,0,0,0.3);border-radius:6px;padding:0.7rem;
+                        font-family:'Courier New',monospace;font-size:0.78rem;color:{COLORS['light_blue']};
+                        margin:0.5rem 0;">
+                <b style="color:{COLORS['accent_gold']};">Γ (cell F4):</b><br>
+                =D8/(S_price*sigma*SQRT(T_years))<br><br>
+                <b style="color:{COLORS['text_secondary']};font-size:0.72rem;">
+                D8 = φ(d₁) = NORM.S.DIST(D2,FALSE)</b>
+            </div>
+            <p style="color:{COLORS['text_primary']};font-size:0.8rem;margin:0.4rem 0 0;">
+                Live: Γ = <b style="color:{COLORS['light_blue']};">{res['gamma']:.6f}</b></p>
+            <p style="color:{COLORS['text_secondary']};font-size:0.75rem;margin:0.2rem 0 0;">
+                Always ≥ 0. Maximum at ATM near expiry.</p>
+        </div>
+
+        <div style="background:{COLORS['card_bg']};border:1px solid rgba(40,167,69,0.3);
+                    border-left:4px solid {COLORS['success']};border-radius:10px;padding:1.2rem;margin-bottom:1rem;">
+            <h4 style="color:{COLORS['success']};margin-top:0;font-family:'Playfair Display',serif;">
+                ν Vega</h4>
+            <p style="color:{COLORS['text_secondary']};font-size:0.8rem;margin:0 0 0.3rem;">
+                ₹ change per 1% rise in implied volatility (same for calls and puts)</p>
+            <div style="background:rgba(0,0,0,0.3);border-radius:6px;padding:0.7rem;
+                        font-family:'Courier New',monospace;font-size:0.78rem;color:{COLORS['light_blue']};
+                        margin:0.5rem 0;">
+                <b style="color:{COLORS['accent_gold']};">ν (cell F5):</b><br>
+                =S_price*D8*SQRT(T_years)/100<br><br>
+                <b style="color:{COLORS['text_secondary']};font-size:0.72rem;">
+                Divide by 100 → per 1% vol change</b>
+            </div>
+            <p style="color:{COLORS['text_primary']};font-size:0.8rem;margin:0.4rem 0 0;">
+                Live: ν = <b style="color:{COLORS['success']};">₹{res['vega']:.4f}</b> per 1% vol</p>
+            <p style="color:{COLORS['text_secondary']};font-size:0.75rem;margin:0.2rem 0 0;">
+                VIX +2pp → option {'+' if res['vega']*2>0 else ''}₹{res['vega']*2:.2f}</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with col_g2:
+        st.markdown(f"""
+        <div style="background:{COLORS['card_bg']};border:1px solid rgba(220,53,69,0.3);
+                    border-left:4px solid {COLORS['danger']};border-radius:10px;padding:1.2rem;margin-bottom:1rem;">
+            <h4 style="color:{COLORS['danger']};margin-top:0;font-family:'Playfair Display',serif;">
+                Θ Theta</h4>
+            <p style="color:{COLORS['text_secondary']};font-size:0.8rem;margin:0 0 0.3rem;">
+                ₹ change per calendar day (always negative for long options)</p>
+            <div style="background:rgba(0,0,0,0.3);border-radius:6px;padding:0.7rem;
+                        font-family:'Courier New',monospace;font-size:0.78rem;color:{COLORS['light_blue']};
+                        margin:0.5rem 0;">
+                <b style="color:{COLORS['accent_gold']};">Call Θ (cell F6):</b><br>
+                =(-S_price*D8*sigma/(2*SQRT(T_years))<br>
+                &nbsp;-r_rate*K_strike*D9*D5)/365<br><br>
+                <b style="color:{COLORS['accent_gold']};">Put Θ (cell F7):</b><br>
+                =(-S_price*D8*sigma/(2*SQRT(T_years))<br>
+                &nbsp;+r_rate*K_strike*D9*D7)/365<br><br>
+                <b style="color:{COLORS['text_secondary']};font-size:0.72rem;">
+                Divide by 365 → per calendar day</b>
+            </div>
+            <p style="color:{COLORS['text_primary']};font-size:0.8rem;margin:0.4rem 0 0;">
+                Live: Θ = <b style="color:{COLORS['danger']};">₹{res['theta']:.4f}</b>/day
+                &nbsp;(₹{res['theta']*7:.2f}/week)</p>
+            <p style="color:{COLORS['text_secondary']};font-size:0.75rem;margin:0.2rem 0 0;">
+                Always ≤ 0 for long options. Most negative at ATM.</p>
+        </div>
+
+        <div style="background:{COLORS['card_bg']};border:1px solid rgba(155,89,182,0.3);
+                    border-left:4px solid #9b59b6;border-radius:10px;padding:1.2rem;margin-bottom:1rem;">
+            <h4 style="color:#9b59b6;margin-top:0;font-family:'Playfair Display',serif;">
+                ρ Rho</h4>
+            <p style="color:{COLORS['text_secondary']};font-size:0.8rem;margin:0 0 0.3rem;">
+                ₹ change per 1% rise in risk-free interest rate</p>
+            <div style="background:rgba(0,0,0,0.3);border-radius:6px;padding:0.7rem;
+                        font-family:'Courier New',monospace;font-size:0.78rem;color:{COLORS['light_blue']};
+                        margin:0.5rem 0;">
+                <b style="color:{COLORS['accent_gold']};">Call ρ (cell F8):</b><br>
+                =K_strike*T_years*D9*D5/100<br><br>
+                <b style="color:{COLORS['accent_gold']};">Put ρ (cell F9):</b><br>
+                =-K_strike*T_years*D9*D7/100<br><br>
+                <b style="color:{COLORS['text_secondary']};font-size:0.72rem;">
+                Divide by 100 → per 1% rate change</b>
+            </div>
+            <p style="color:{COLORS['text_primary']};font-size:0.8rem;margin:0.4rem 0 0;">
+                Live: Call ρ = <b style="color:#9b59b6;">₹{res['rho']:.4f}</b>
+                &nbsp;| Put ρ = <b style="color:{COLORS['danger']};">₹{-res['rho']:.4f}</b></p>
+            <p style="color:{COLORS['text_secondary']};font-size:0.75rem;margin:0.2rem 0 0;">
+                Least important for short-dated NIFTY options.</p>
+        </div>
+
+        <div style="background:{COLORS['card_bg']};border:1px solid rgba(255,215,0,0.2);
+                    border-left:4px solid rgba(255,215,0,0.5);border-radius:10px;padding:1.2rem;margin-bottom:1rem;">
+            <h4 style="color:{COLORS['accent_gold']};margin-top:0;font-family:'Playfair Display',serif;">
+                ⚡ Breakeven Daily Move (Gamma Scalping)</h4>
+            <p style="color:{COLORS['text_secondary']};font-size:0.8rem;margin:0 0 0.3rem;">
+                Minimum daily spot move for long gamma to profit</p>
+            <div style="background:rgba(0,0,0,0.3);border-radius:6px;padding:0.7rem;
+                        font-family:'Courier New',monospace;font-size:0.78rem;color:{COLORS['light_blue']};
+                        margin:0.5rem 0;">
+                <b style="color:{COLORS['accent_gold']};">BEP Move (cell F10):</b><br>
+                =SQRT(-2*F6/F4)<br><br>
+                <b style="color:{COLORS['text_secondary']};font-size:0.72rem;">
+                F6=Theta, F4=Gamma. Result in ₹/day.</b>
+            </div>
+            <p style="color:{COLORS['text_primary']};font-size:0.8rem;margin:0.4rem 0 0;">
+                Live: BEP Move = <b style="color:{COLORS['accent_gold']};">
+                ₹{np.sqrt(-2*res['theta']/res['gamma']) if res['gamma']>0 else 0:.1f}</b>/day</p>
+            <p style="color:{COLORS['text_secondary']};font-size:0.75rem;margin:0.2rem 0 0;">
+                If |daily move| &gt; this → long gamma profits; else theta bleeds it out.</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+    # ── Complete formula table ────────────────────────────────────────────
+    section_title("📋 Complete Excel Formula Sheet — Copy-Paste Ready")
+
+    st.markdown(f"""
+    <div class="info-box">
+        <h4 style="color:{COLORS['accent_gold']};margin-top:0;">How to use this table</h4>
+        <p style="color:{COLORS['text_primary']};line-height:1.8;margin:0;">
+        1. Create a new Excel sheet. Set up named cells (B2–B7) as per the Setup table above.<br>
+        2. Copy the formulas below exactly into the specified cells.<br>
+        3. All formulas use the named ranges — no hardcoded values.<br>
+        4. Live Value column shows current output with sidebar parameters for verification.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    bep = np.sqrt(-2*res['theta']/res['gamma']) if res['gamma'] > 0 else 0
+    full_formula_df = pd.DataFrame([
+        # Intermediates
+        {"Cell":"D2","Output":"d₁",
+         "Formula":"=(LN(S_price/K_strike)+(r_rate+0.5*sigma^2)*T_years)/(sigma*SQRT(T_years))",
+         "Live Value":f"{res['d1']:.6f}","Category":"Intermediate"},
+        {"Cell":"D3","Output":"d₂",
+         "Formula":"=D2-sigma*SQRT(T_years)",
+         "Live Value":f"{res['d2']:.6f}","Category":"Intermediate"},
+        {"Cell":"D4","Output":"N(d₁)",
+         "Formula":"=NORM.S.DIST(D2,TRUE)",
+         "Live Value":f"{norm.cdf(res['d1']):.6f}","Category":"Intermediate"},
+        {"Cell":"D5","Output":"N(d₂)",
+         "Formula":"=NORM.S.DIST(D3,TRUE)",
+         "Live Value":f"{norm.cdf(res['d2']):.6f}","Category":"Intermediate"},
+        {"Cell":"D6","Output":"N(−d₁)",
+         "Formula":"=NORM.S.DIST(-D2,TRUE)",
+         "Live Value":f"{norm.cdf(-res['d1']):.6f}","Category":"Intermediate"},
+        {"Cell":"D7","Output":"N(−d₂)",
+         "Formula":"=NORM.S.DIST(-D3,TRUE)",
+         "Live Value":f"{norm.cdf(-res['d2']):.6f}","Category":"Intermediate"},
+        {"Cell":"D8","Output":"φ(d₁) PDF",
+         "Formula":"=NORM.S.DIST(D2,FALSE)",
+         "Live Value":f"{norm.pdf(res['d1']):.6f}","Category":"Intermediate"},
+        {"Cell":"D9","Output":"e^(−rT)",
+         "Formula":"=EXP(-r_rate*T_years)",
+         "Live Value":f"{np.exp(-r*T):.6f}","Category":"Intermediate"},
+        # Prices
+        {"Cell":"E2","Output":"Call Price",
+         "Formula":"=S_price*D4-K_strike*D9*D5",
+         "Live Value":f"₹{bsm(S,K,T,r,sigma,'call')['price']:.4f}","Category":"Option Price"},
+        {"Cell":"E3","Output":"Put Price",
+         "Formula":"=K_strike*D9*D7-S_price*D6",
+         "Live Value":f"₹{bsm(S,K,T,r,sigma,'put')['price']:.4f}","Category":"Option Price"},
+        {"Cell":"E4","Output":"PCP Check",
+         "Formula":"=E2-E3-S_price+K_strike*D9",
+         "Live Value":"≈ 0.0000","Category":"Option Price"},
+        {"Cell":"E5","Output":"Intrinsic (Call)",
+         "Formula":"=MAX(S_price-K_strike,0)",
+         "Live Value":f"₹{max(S-K,0):.2f}","Category":"Option Price"},
+        {"Cell":"E6","Output":"Intrinsic (Put)",
+         "Formula":"=MAX(K_strike-S_price,0)",
+         "Live Value":f"₹{max(K-S,0):.2f}","Category":"Option Price"},
+        {"Cell":"E7","Output":"BEP Call",
+         "Formula":"=K_strike+E2",
+         "Live Value":f"₹{K+bsm(S,K,T,r,sigma,'call')['price']:.2f}","Category":"Option Price"},
+        {"Cell":"E8","Output":"BEP Put",
+         "Formula":"=K_strike-E3",
+         "Live Value":f"₹{K-bsm(S,K,T,r,sigma,'put')['price']:.2f}","Category":"Option Price"},
+        # Greeks
+        {"Cell":"F2","Output":"Call Delta",
+         "Formula":"=NORM.S.DIST(D2,TRUE)",
+         "Live Value":f"{res['delta']:.6f}","Category":"Greek"},
+        {"Cell":"F3","Output":"Put Delta",
+         "Formula":"=NORM.S.DIST(D2,TRUE)-1",
+         "Live Value":f"{res['delta']-1:.6f}","Category":"Greek"},
+        {"Cell":"F4","Output":"Gamma",
+         "Formula":"=D8/(S_price*sigma*SQRT(T_years))",
+         "Live Value":f"{res['gamma']:.8f}","Category":"Greek"},
+        {"Cell":"F5","Output":"Vega",
+         "Formula":"=S_price*D8*SQRT(T_years)/100",
+         "Live Value":f"₹{res['vega']:.6f}","Category":"Greek"},
+        {"Cell":"F6","Output":"Call Theta",
+         "Formula":"=(-S_price*D8*sigma/(2*SQRT(T_years))-r_rate*K_strike*D9*D5)/365",
+         "Live Value":f"₹{res['theta']:.6f}","Category":"Greek"},
+        {"Cell":"F7","Output":"Put Theta",
+         "Formula":"=(-S_price*D8*sigma/(2*SQRT(T_years))+r_rate*K_strike*D9*D7)/365",
+         "Live Value":f"₹{bsm(S,K,T,r,sigma,'put')['theta']:.6f}","Category":"Greek"},
+        {"Cell":"F8","Output":"Call Rho",
+         "Formula":"=K_strike*T_years*D9*D5/100",
+         "Live Value":f"₹{res['rho']:.6f}","Category":"Greek"},
+        {"Cell":"F9","Output":"Put Rho",
+         "Formula":"=-K_strike*T_years*D9*D7/100",
+         "Live Value":f"₹{-res['rho']:.6f}","Category":"Greek"},
+        {"Cell":"F10","Output":"BEP Daily Move",
+         "Formula":"=SQRT(-2*F6/F4)",
+         "Live Value":f"₹{bep:.2f}","Category":"Greek"},
+        # Position P&L
+        {"Cell":"G2","Output":"Position P&L (Call)",
+         "Formula":"=(E2-purchase_price)*lot_size",
+         "Live Value":"Depends on purchase_price","Category":"P&L"},
+        {"Cell":"G3","Output":"Daily Theta Cost",
+         "Formula":"=F6*lot_size",
+         "Live Value":f"₹{res['theta']*50:.2f} (per lot)","Category":"P&L"},
+        {"Cell":"G4","Output":"VIX +1% Impact",
+         "Formula":"=F5*lot_size",
+         "Live Value":f"₹{res['vega']*50:.2f} (per lot)","Category":"P&L"},
+        {"Cell":"G5","Output":"Delta Hedge Shares",
+         "Formula":"=F2*lot_size",
+         "Live Value":f"{res['delta']*50:.1f} shares (per lot)","Category":"P&L"},
+    ])
+    st.dataframe(full_formula_df, use_container_width=True, hide_index=True)
+
+    # ── Common errors ─────────────────────────────────────────────────────
+    section_title("⚠️ Common Excel Errors & Fixes")
+    errors_df = pd.DataFrame([
+        {"Error":"#DIV/0!","Cause":"T_years = 0 (option has expired)","Fix":"Ensure T_years > 0. Add IF(T_years<=0,0,...) guard."},
+        {"Error":"#NUM!","Cause":"sigma=0 or S_price=0 or K_strike=0","Fix":"All inputs must be positive non-zero values."},
+        {"Error":"#NAME?","Cause":"Named range not defined (e.g. S_price not set)","Fix":"Define named ranges via Name Box or Formulas → Name Manager."},
+        {"Error":"#VALUE!","Cause":"Text in a numeric cell (e.g. '22,500' with comma)","Fix":"Remove commas/currency symbols — enter raw numbers only."},
+        {"Error":"Wrong sign on Theta","Cause":"Missing negative sign or wrong N() function used","Fix":"Call Theta uses N(d₂) with minus; Put Theta uses N(−d₂) with plus before r term."},
+        {"Error":"Gamma too large","Cause":"T_years very small (e.g., same-day expiry)","Fix":"Expected — Gamma explodes near expiry for ATM options. This is correct BSM behaviour."},
+        {"Error":"Put-Call Parity ≠ 0","Cause":"Using different d1/d2 values for call vs put","Fix":"Reference the SAME D2, D3 cells for both call and put formulas."},
+    ])
+    st.dataframe(errors_df, use_container_width=True, hide_index=True)
+
+    # ── Quick verification ────────────────────────────────────────────────
+    section_title("✅ Quick Verification — Sanity Check Your Model")
+    st.markdown(f"""
+    <div class="info-box">
+        <h4 style="color:{COLORS['accent_gold']};margin-top:0;">5 Checks to Verify Your Excel Model is Correct</h4>
+        <ol style="color:{COLORS['text_primary']};line-height:2.2;margin:0;padding-left:1.3rem;">
+            <li><b>Put-Call Parity:</b> Cell E4 = C − P − S + K·e<sup>−rT</sup> must be ≈ 0 (within ₹0.01)</li>
+            <li><b>Delta bounds:</b> Call Delta in [0,1] · Put Delta in [−1,0] · At-the-money ≈ ±0.50</li>
+            <li><b>Gamma positive:</b> Cell F4 must always be &gt; 0. If negative, formula sign error.</li>
+            <li><b>Theta negative (call):</b> Cell F6 must be &lt; 0 always for European call.</li>
+            <li><b>Deep OTM option:</b> Set S much lower than K (e.g., S=20000, K=23000) → price near ₹0, Delta near 0.</li>
+        </ol>
+        <p style="color:{COLORS['text_secondary']};font-size:0.82rem;margin:0.8rem 0 0;">
+        💡 Cross-check your Excel values against the live metrics bar at the top of this app
+        using the same S, K, T, r, σ — they should match to 4 decimal places.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+
 
 # ============================================================================
 # FOOTER
