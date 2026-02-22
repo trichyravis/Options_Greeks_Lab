@@ -440,23 +440,17 @@ for col, (lbl, val, sub) in zip(cols, metrics_data):
         metric_card(lbl, val, sub)
 
 # ============================================================================
-# ROW 1 TABS — About + Analytical Tools (6 tabs)
+# TABS
 # ============================================================================
-st.markdown(f"""
-<div style="margin-bottom:-1rem;">
-    <p style="color:{COLORS['text_secondary']};font-size:0.72rem;letter-spacing:1.5px;
-              text-transform:uppercase;margin:0 0 0.3rem;font-weight:600;">
-        🗺️ About &nbsp;·&nbsp; 📊 Analytics & Modelling
-    </p>
-</div>""", unsafe_allow_html=True)
-
-tab0, tab1, tab2, tab3, tab4, tab5 = st.tabs([
+tab0, tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
     "🗺️ About & User Guide",
     "📈 Greek Profiles",
     "🌐 3D Surfaces",
     "💰 P&L Simulation",
     "📊 Sensitivity Table",
     "📚 Theory & Formulae",
+    "🎓 Greek Education Hub",
+    "📊 Excel Formula Guide",
 ])
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -1073,83 +1067,9 @@ print(f"Price: ₹{res['price']:.2f}  |  Delta: {res['delta']:.4f}  |  Vega: {re
     ])
     st.dataframe(excel_df, use_container_width=True, hide_index=True)
 
-# ============================================================================
-# ROW 2 TABS — Education & Guides (rendered AFTER all Row 1 tab content)
-# ============================================================================
-st.markdown(f"""
-<div style="margin-top:1.5rem;margin-bottom:-0.5rem;">
-    <p style="color:{COLORS['text_secondary']};font-size:0.72rem;letter-spacing:1.5px;
-              text-transform:uppercase;margin:0 0 0.3rem;font-weight:600;">
-        📖 Education &amp; Formula Guides
-    </p>
-</div>""", unsafe_allow_html=True)
-
-st.markdown(f"""
-<style>
-    div[data-testid="stRadio"] [data-testid="stWidgetLabel"] {{
-        display: none !important;
-    }}
-    div[data-testid="stRadio"] > div[role="radiogroup"] > label > div:first-child {{
-        display: none !important;
-    }}
-    div[data-testid="stRadio"] > div[role="radiogroup"] {{
-        display: flex !important;
-        flex-direction: row !important;
-        gap: 10px !important;
-        flex-wrap: wrap !important;
-        align-items: center !important;
-    }}
-    div[data-testid="stRadio"] > div[role="radiogroup"] > label {{
-        background: {COLORS['card_bg']} !important;
-        border: 1px solid rgba(255,215,0,0.35) !important;
-        border-radius: 8px !important;
-        padding: 0.5rem 1.2rem !important;
-        cursor: pointer !important;
-        margin: 0 !important;
-        min-height: unset !important;
-        transition: all 0.15s ease !important;
-    }}
-    div[data-testid="stRadio"] > div[role="radiogroup"] > label p,
-    div[data-testid="stRadio"] > div[role="radiogroup"] > label span,
-    div[data-testid="stRadio"] > div[role="radiogroup"] > label div {{
-        color: {COLORS['text_primary']} !important;
-        font-size: 0.9rem !important;
-        font-weight: 500 !important;
-    }}
-    div[data-testid="stRadio"] > div[role="radiogroup"] > label:hover {{
-        background: rgba(0,51,102,0.7) !important;
-        border-color: {COLORS['accent_gold']} !important;
-    }}
-    div[data-testid="stRadio"] > div[role="radiogroup"] > label:hover p,
-    div[data-testid="stRadio"] > div[role="radiogroup"] > label:hover span,
-    div[data-testid="stRadio"] > div[role="radiogroup"] > label:hover div {{
-        color: {COLORS['accent_gold']} !important;
-    }}
-    div[data-testid="stRadio"] > div[role="radiogroup"] > label:has(input:checked) {{
-        background: {COLORS['dark_blue']} !important;
-        border: 2px solid {COLORS['accent_gold']} !important;
-    }}
-    div[data-testid="stRadio"] > div[role="radiogroup"] > label:has(input:checked) p,
-    div[data-testid="stRadio"] > div[role="radiogroup"] > label:has(input:checked) span,
-    div[data-testid="stRadio"] > div[role="radiogroup"] > label:has(input:checked) div {{
-        color: {COLORS['accent_gold']} !important;
-        font-weight: 700 !important;
-    }}
-</style>
-""", unsafe_allow_html=True)
-
-row2_tab = st.radio(
-    "Education Tabs",
-    ["🎓 Greek Education Hub", "📊 Excel Formula Guide"],
-    horizontal=True,
-    label_visibility="collapsed",
-    key="row2_tabs"
-)
-
 # ══════════════════════════════════════════════════════════════════════════
-# ROW 2 — TAB A: EDUCATIONAL PLATFORM — OPTIONS GREEKS IN DETAIL
-# ══════════════════════════════════════════════════════════════════════════
-if row2_tab == "🎓 Greek Education Hub":
+# ──────────────────────── TAB 6: GREEK EDUCATION HUB ──────────────────────
+with tab6:
 
     st.markdown(f"""
     <div style="background: linear-gradient(135deg, {COLORS['dark_blue']}, {COLORS['medium_blue']});
@@ -1784,9 +1704,8 @@ if row2_tab == "🎓 Greek Education Hub":
         """, unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════════════════
-# ROW 2 — TAB C: EXCEL FORMULA GUIDE
-# ══════════════════════════════════════════════════════════════════════════
-if row2_tab == "📊 Excel Formula Guide":
+# ──────────────────────── TAB 7: EXCEL FORMULA GUIDE ──────────────────────
+with tab7:
 
     st.markdown(f"""
     <div style="background:linear-gradient(135deg,{COLORS['dark_blue']},{COLORS['medium_blue']});
