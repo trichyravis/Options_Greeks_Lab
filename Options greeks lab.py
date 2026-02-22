@@ -459,6 +459,299 @@ tab0, tab1, tab2, tab3, tab4, tab5 = st.tabs([
     "📚 Theory & Formulae",
 ])
 
+# ══════════════════════════════════════════════════════════════════════════
+# TAB 0: ABOUT & USER GUIDE (first tab in Row 1)
+# ══════════════════════════════════════════════════════════════════════════
+with tab0:
+    # ── Platform Hero ──────────────────────────────────────────────────
+    st.markdown(f"""
+    <div style="background: linear-gradient(135deg, {COLORS['dark_blue']}, {COLORS['medium_blue']}, #1a3a5c);
+                border: 2px solid {COLORS['accent_gold']}; border-radius: 14px;
+                padding: 2.5rem; margin-bottom: 1.5rem; text-align: center;">
+        <div style="font-size: 4rem; margin-bottom: 0.5rem;">🏔️</div>
+        <h1 style="color:{COLORS['accent_gold']}; font-family:'Playfair Display',serif;
+                   font-size: 2.2rem; margin: 0.3rem 0;">Options Greeks Lab</h1>
+        <p style="color:{COLORS['light_blue']}; font-size: 1.1rem; margin: 0.5rem 0;">
+            A comprehensive interactive platform for learning and applying the Black-Scholes-Merton framework
+        </p>
+        <p style="color:{COLORS['text_secondary']}; font-size: 0.85rem; margin-top: 1rem;">
+            Designed for MBA · CFA · FRM · Financial Derivatives students and practitioners
+        </p>
+        <div style="margin-top: 1.5rem; display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+            <span style="background: rgba(255,215,0,0.12); border: 1px solid {COLORS['accent_gold']};
+                         border-radius: 20px; padding: 0.4rem 1.2rem; color: {COLORS['accent_gold']}; font-size: 0.85rem;">
+                ⚡ Live BSM Calculator
+            </span>
+            <span style="background: rgba(255,215,0,0.12); border: 1px solid {COLORS['accent_gold']};
+                         border-radius: 20px; padding: 0.4rem 1.2rem; color: {COLORS['accent_gold']}; font-size: 0.85rem;">
+                🌐 3D Greek Surfaces
+            </span>
+            <span style="background: rgba(255,215,0,0.12); border: 1px solid {COLORS['accent_gold']};
+                         border-radius: 20px; padding: 0.4rem 1.2rem; color: {COLORS['accent_gold']}; font-size: 0.85rem;">
+                💰 P&L Simulation
+            </span>
+            <span style="background: rgba(255,215,0,0.12); border: 1px solid {COLORS['accent_gold']};
+                         border-radius: 20px; padding: 0.4rem 1.2rem; color: {COLORS['accent_gold']}; font-size: 0.85rem;">
+                🎓 Education Hub
+            </span>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # ── About the Platform ──────────────────────────────────────────────
+    section_title("🏔️ About The Mountain Path — World of Finance")
+
+    col_about1, col_about2 = st.columns([2, 1])
+    with col_about1:
+        st.markdown(f"""
+        <div class="info-box">
+            <h4 style='color:{COLORS['accent_gold']};margin-top:0;'>Our Mission</h4>
+            <p style="color:{COLORS['text_primary']};line-height:1.8;margin:0 0 0.8rem;">
+            The Mountain Path is an educational finance platform built to bridge the gap between
+            textbook theory and practical application. Every tool, chart, and simulation on this
+            platform is designed to make complex quantitative finance concepts intuitive and
+            immediately actionable.</p>
+            <p style="color:{COLORS['text_primary']};line-height:1.8;margin:0 0 0.8rem;">
+            This <b>Options Greeks Lab</b> is the definitive interactive environment for understanding
+            the Black-Scholes-Merton pricing framework — from basic call/put pricing to advanced
+            3D sensitivity surfaces and real-world P&L simulation.</p>
+            <p style="color:{COLORS['text_primary']};line-height:1.8;margin:0;">
+            <b>Pedagogy:</b> Learn by doing. Every parameter change on the sidebar instantly updates
+            all 7 tabs — so you see, in real time, how a change in volatility ripples through Delta,
+            reshapes the 3D surface, and shifts your P&L breakeven.</p>
+        </div>""", unsafe_allow_html=True)
+
+    with col_about2:
+        st.markdown(f"""
+        <div style="background: {COLORS['card_bg']}; border: 1px solid {COLORS['accent_gold']};
+                    border-radius: 10px; padding: 1.5rem; text-align: center;">
+            <div style="font-size: 2.5rem;">👨‍🏫</div>
+            <p style="color:{COLORS['accent_gold']}; font-family:'Playfair Display',serif;
+                      font-weight:700; font-size:1rem; margin: 0.5rem 0;">
+                Prof. V. Ravichandran
+            </p>
+            <p style="color:{COLORS['text_secondary']}; font-size:0.78rem; line-height:1.6;">
+                28+ Years Corporate Finance & Banking Experience<br>
+                10+ Years Academic Excellence<br><br>
+                Visiting Faculty: BITS Pilani WILP · Christ University ·
+                Goa Institute of Management · ICFAI Bangalore
+            </p>
+            <div style="margin-top:1rem; border-top:1px solid rgba(255,215,0,0.2); padding-top:1rem;">
+                <a href="{BRANDING['linkedin']}" target="_blank"
+                   style="color:{COLORS['accent_gold']};text-decoration:none;font-size:0.85rem;">
+                    🔗 LinkedIn Profile
+                </a><br>
+                <a href="{BRANDING['github']}" target="_blank"
+                   style="color:{COLORS['accent_gold']};text-decoration:none;font-size:0.85rem;">
+                    💻 GitHub Projects
+                </a>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    # ── Target Audience ─────────────────────────────────────────────────
+    section_title("🎯 Who Is This Platform For?")
+    col_a, col_b, col_c, col_d = st.columns(4)
+    audiences = [
+        ("🎓", "MBA Students", "Financial Derivatives, Investment Banking, Capital Markets modules"),
+        ("📊", "CFA Candidates", "Level 1–3 derivatives, options pricing, risk management"),
+        ("⚠️", "FRM Students", "Market risk, options risk measures, Greeks hedging"),
+        ("💼", "Practitioners", "Traders, risk managers, quant analysts seeking intuition"),
+    ]
+    for col, (icon, title, desc) in zip([col_a, col_b, col_c, col_d], audiences):
+        with col:
+            st.markdown(f"""
+            <div style="background:{COLORS['card_bg']};border:1px solid rgba(255,215,0,0.25);
+                        border-radius:10px;padding:1.2rem;text-align:center;height:170px;">
+                <div style="font-size:2rem;">{icon}</div>
+                <p style="color:{COLORS['accent_gold']};font-weight:700;font-size:0.9rem;margin:0.4rem 0;">{title}</p>
+                <p style="color:{COLORS['text_secondary']};font-size:0.75rem;line-height:1.5;">{desc}</p>
+            </div>
+            """, unsafe_allow_html=True)
+
+    # ── Features Overview ───────────────────────────────────────────────
+    section_title("✨ Platform Features")
+    features = [
+        ("📈", "Greek Profiles", "Six interactive charts — Delta, Gamma, Vega, Theta, Rho, Price vs Spot. Plus Greeks vs Volatility and vs Time to Expiry."),
+        ("🌐", "3D Surfaces", "Rotate and explore any Greek or price as a 3D surface. Choose any two axes from Spot, Vol, Time. Ideal for intuition building."),
+        ("💰", "P&L Simulation", "Multi-horizon P&L curves at expiry, 75%, 50%, 25% and 1-day. Scenario grid: 7 vol changes × 11 spot moves."),
+        ("📊", "Sensitivity Table", "Bump-and-reprice for all parameters. See exact ₹ and % impact of each market move on option price."),
+        ("📚", "Theory & Code", "BSM formulae, assumptions, Python implementation and Excel model architecture in one place."),
+        ("🗺️", "About & User Guide", "Step-by-step instructions, FAQs, and tips for getting the most from the platform."),
+        ("🎓", "Education Hub", "Deep-dive educational content on every Greek — concept, formula, behaviour, trading implications, and worked examples."),
+    ]
+    for i in range(0, len(features), 3):
+        cols_f = st.columns(3)
+        for j, col in enumerate(cols_f):
+            if i+j < len(features):
+                icon, title, desc = features[i+j]
+                with col:
+                    st.markdown(f"""
+                    <div style="background:{COLORS['card_bg']};border:1px solid rgba(255,215,0,0.2);
+                                border-left:4px solid {COLORS['accent_gold']};border-radius:10px;
+                                padding:1.2rem;margin:0.5rem 0;min-height:140px;">
+                        <div style="font-size:1.8rem;margin-bottom:0.4rem;">{icon}</div>
+                        <p style="color:{COLORS['accent_gold']};font-weight:700;font-size:0.95rem;margin:0 0 0.4rem;">{title}</p>
+                        <p style="color:{COLORS['text_secondary']};font-size:0.8rem;line-height:1.6;margin:0;">{desc}</p>
+                    </div>
+                    """, unsafe_allow_html=True)
+
+    # ── Step-by-Step User Guide ─────────────────────────────────────────
+    section_title("📖 Step-by-Step User Guide")
+
+    guide_steps = [
+        ("Step 1 — Set Your Parameters (Sidebar)",
+         """<p>The <b>left sidebar</b> is the control centre. All tabs update instantly when you change any value.</p>
+         <ul>
+           <li><b>Spot Price (S):</b> Current market price of the underlying (e.g., NIFTY 50 index level)</li>
+           <li><b>Strike Price (K):</b> The exercise price of the option</li>
+           <li><b>Time to Expiry (days):</b> Calendar days remaining until expiration</li>
+           <li><b>Volatility σ:</b> Implied or historical volatility in % per annum (India VIX ≈ 13–18%)</li>
+           <li><b>Risk-Free Rate r:</b> Use RBI repo rate (~6.5%) or 91-day T-bill yield</li>
+           <li><b>Option Type:</b> Call (right to buy) or Put (right to sell)</li>
+         </ul>"""),
+        ("Step 2 — Read the Live Metrics Bar",
+         """<p>The <b>8-metric row</b> at the top updates with every parameter change:</p>
+         <ul>
+           <li><b>Option Price:</b> BSM fair value in ₹ with moneyness tag (ITM/ATM/OTM)</li>
+           <li><b>Δ, Γ, ν, Θ, ρ:</b> All five Greeks, live</li>
+           <li><b>d₁ and d₂:</b> The BSM standardised distance measures used in all calculations</li>
+         </ul>
+         <p>💡 <i>Tip: Set S = K (spot equals strike) to see ATM Greeks — most important for exam questions.</i></p>"""),
+        ("Step 3 — Explore Greek Profiles (Tab 1)",
+         """<p>This tab shows all 6 Greek profiles against Spot Price simultaneously:</p>
+         <ul>
+           <li>The <b>gold dashed line</b> marks your current spot</li>
+           <li>The <b>grey dashed line</b> marks the strike price</li>
+           <li>Change T (time) to see how near-expiry collapse sharpens the Delta step function at ATM</li>
+           <li>The bottom charts show Greeks vs Volatility and vs Time — critical for vega exposure</li>
+         </ul>"""),
+        ("Step 4 — Build 3D Intuition (Tab 2)",
+         """<p>The 3D surface is the most powerful learning tool on the platform:</p>
+         <ul>
+           <li>Select a Greek from the sidebar (e.g., <b>Gamma</b>) and choose axes (e.g., Spot × Time)</li>
+           <li><b>Rotate</b> the surface by clicking and dragging</li>
+           <li>Gamma surface: notice the sharp ATM peak near expiry — this is "gamma risk"</li>
+           <li>Theta surface: observe the accelerating decay cliff as expiry approaches</li>
+           <li>Vega surface: flat far from ATM, maximum at ATM — shows where vol risk is concentrated</li>
+         </ul>"""),
+        ("Step 5 — Simulate P&L (Tab 3)",
+         """<p>Enter a realistic trading scenario using the <b>💰 P&L Settings</b> in the sidebar:</p>
+         <ul>
+           <li><b>Lot Size:</b> Number of option contracts in your position. NIFTY lot = 50, BANK NIFTY = 15, FINNIFTY = 40.</li>
+           <li><b>Purchase Price ₹</b> — this is the most important field to understand:</li>
+         </ul>
+         <div style="background:rgba(255,215,0,0.08);border-left:3px solid #FFD700;border-radius:6px;
+                     padding:0.8rem 1.2rem;margin:0.5rem 0 0.8rem 1.5rem;">
+           <p style="margin:0 0 0.5rem;"><b>What is Purchase Price?</b></p>
+           <p style="margin:0 0 0.4rem;">It is the premium you <b>actually paid</b> when you entered your trade — i.e., your cost of buying the option.</p>
+           <p style="margin:0 0 0.6rem;"><b>Enter 0 (default):</b> The lab automatically uses today's live BSM-calculated price as your entry cost. This is the "theoretical" scenario — useful for teaching and exploring Greeks without a specific trade in mind.</p>
+           <p style="margin:0 0 0.6rem;"><b>Enter your actual premium</b> (e.g., ₹180): The P&L chart and scenario grid will show your real-world profit or loss from your actual entry point. All P&L = (Current Price − ₹180) × Lot Size.</p>
+           <p style="margin:0 0 0.4rem;"><b>Example:</b> Yesterday you bought 2 NIFTY ATM call lots at ₹220 each (lot size 50). Enter Purchase Price = 220, Lot Size = 100 (2 × 50). The P&L tab now shows exactly how much you are making or losing today across all spot and vol scenarios.</p>
+           <p style="margin:0;"><b>Breakeven point</b> is automatically calculated: For calls, Breakeven = Strike + Purchase Price. For puts, Breakeven = Strike − Purchase Price. The green dashed line on the P&L chart marks this level.</p>
+         </div>
+         <ul>
+           <li>The <b>5 P&L curves</b> show expected profit at Expiry, 75%T, 50%T, 25%T, and 1-day from now</li>
+           <li>The <b>Scenario Grid</b> is a stress test: rows = vol change (−8% to +16%), columns = spot move (−30% to +30%)</li>
+         </ul>"""
+        ),
+        ("Step 6 — Run Sensitivity Analysis (Tab 4)",
+         """<p>The bump-and-reprice table quantifies exact risk exposures:</p>
+         <ul>
+           <li>Each row shows the ₹ price change for a standard-size shock to one factor</li>
+           <li>Compare <b>Spot +₹1</b> change (≈ Delta) with the Delta in your metrics bar — they match</li>
+           <li>Compare <b>Vol +1%</b> change with Vega × 1 — confirms your Vega calculation</li>
+           <li>The Greek Summary table interprets each Greek in plain English with current values</li>
+         </ul>"""),
+        ("Step 7 — Deep Learning (Tabs 5 & 7)",
+         """<p>Use these two tabs for structured learning:</p>
+         <ul>
+           <li><b>Tab 5 (Theory & Formulae):</b> BSM pricing, assumptions, all Greek formulae, Python code, Excel architecture</li>
+           <li><b>Tab 7 (Greek Education Hub):</b> Deep concept cards for each Greek — intuition, formulae, real-world examples, strategies, worked numericals</li>
+           <li>Study Tab 7 before an exam — covers first principles through advanced second-order effects</li>
+         </ul>"""),
+    ]
+
+    for step_title, step_content in guide_steps:
+        with st.expander(f"📌 {step_title}"):
+            st.markdown(f"""
+            <div style="color:{COLORS['text_primary']};line-height:1.8;font-size:0.9rem;">
+                {step_content}
+            </div>
+            """, unsafe_allow_html=True)
+
+    # ── Quick Reference ──────────────────────────────────────────────────
+    section_title("⚡ Quick Reference — Parameter Cheatsheet")
+    ref_col1, ref_col2 = st.columns(2)
+
+    with ref_col1:
+        st.markdown(f"""
+        <div class="info-box">
+            <h4 style='color:{COLORS["accent_gold"]};margin-top:0;'>📐 Typical Parameter Ranges (Indian Markets)</h4>
+            <ul style="color:{COLORS['text_primary']};line-height:2;margin:0;padding-left:1.2rem;">
+                <li><b>Spot:</b> NIFTY 50 ≈ 22,000–24,000 | BANK NIFTY ≈ 48,000–52,000</li>
+                <li><b>Volatility:</b> India VIX ≈ 12–25% (normal); 30–60% (crisis)</li>
+                <li><b>Risk-Free Rate:</b> RBI Repo ≈ 6.25–6.5% (2024–25)</li>
+                <li><b>Lot Sizes:</b> NIFTY = 50 | BANK NIFTY = 15 | FINNIFTY = 40</li>
+                <li><b>Expiry:</b> Weekly (Thursday) and Monthly contracts available</li>
+            </ul>
+        </div>""", unsafe_allow_html=True)
+
+    with ref_col2:
+        st.markdown(f"""
+        <div class="info-box">
+            <h4 style='color:{COLORS["accent_gold"]};margin-top:0;'>🔖 Moneyness Quick Reference</h4>
+            <ul style="color:{COLORS['text_primary']};line-height:2;margin:0;padding-left:1.2rem;">
+                <li><b>ITM Call:</b> S &gt; K — has intrinsic value; Delta &gt; 0.5</li>
+                <li><b>OTM Call:</b> S &lt; K — only time value; Delta &lt; 0.5</li>
+                <li><b>ATM:</b> S = K — maximum Gamma and Vega; Delta ≈ 0.5</li>
+                <li><b>Deep ITM:</b> Delta → 1; Gamma → 0; behaves like stock</li>
+                <li><b>Deep OTM:</b> Delta → 0; Gamma → 0; all time value only</li>
+            </ul>
+        </div>""", unsafe_allow_html=True)
+
+    # ── FAQs ─────────────────────────────────────────────────────────────
+    section_title("❓ Frequently Asked Questions")
+    faqs = [
+        ("Why doesn't the BSM price match the market price?",
+         "BSM assumes constant volatility and no dividends. Market prices use implied volatility — "
+         "the volatility that makes BSM equal to the traded price. For index options (NIFTY), "
+         "dividend treatment also differs. Use this lab for learning sensitivity relationships, "
+         "not for direct arbitrage pricing."),
+        ("Why is Theta always negative for long options?",
+         "As time passes, the uncertainty about the final outcome decreases — there is less time "
+         "for the option to move into the money. This loss of optionality is captured by Theta. "
+         "Theta decay accelerates as expiry approaches, especially for ATM options. "
+         "Short option sellers benefit — they receive Theta daily."),
+        ("What does a Delta of 0.45 mean practically?",
+         "Your call position behaves like holding 0.45 shares of the underlying. "
+         "A ₹100 rise in the stock increases your call price by approximately ₹45. "
+         "For hedging: to be delta-neutral, sell 0.45 shares for every 1 call you own."),
+        ("Why does Gamma peak at ATM and near expiry?",
+         "Gamma measures how quickly Delta changes. Near expiry, a small spot move can dramatically "
+         "change whether an ATM option finishes in or out of the money — so Delta changes rapidly. "
+         "This is why ATM short options near expiry carry extreme gamma risk (the 'gamma trap')."),
+        ("How should I use the P&L Scenario Grid in practice?",
+         "Think of it as a stress test. Your current position sits at Vol Δ = 0 and Spot = 0%. "
+         "Read: what happens if the market falls 15% AND volatility spikes 12%? "
+         "This is exactly what happens during a market crash. Use this grid before entering trades "
+         "to understand worst-case scenarios and position sizing."),
+        ("What is the difference between Vega and Implied Volatility?",
+         "Vega measures sensitivity of the option price to a 1% change in volatility. "
+         "Implied Volatility (IV) is the volatility input that makes BSM equal to the market price. "
+         "India VIX is a measure of 30-day implied volatility for NIFTY 50 options. "
+         "When VIX rises, option prices rise — Vega tells you by exactly how much."),
+    ]
+    for q, a in faqs:
+        with st.expander(f"🔹 {q}"):
+            st.markdown(f"""
+            <div style="color:{COLORS['text_primary']};font-size:0.9rem;line-height:1.8;
+                        background:rgba(0,51,102,0.3);border-radius:8px;padding:1rem;">
+                {a}
+            </div>
+            """, unsafe_allow_html=True)
+
+
 # ──────────────────────── TAB 1: GREEK PROFILES ───────────────────────────
 with tab1:
     section_title("📈 Greek Sensitivity Profiles")
@@ -779,299 +1072,6 @@ print(f"Price: ₹{res['price']:.2f}  |  Delta: {res['delta']:.4f}  |  Vega: {re
         {"Sheet": "Theta Decay",       "Contents": "Option price and theta vs days to expiry"},
     ])
     st.dataframe(excel_df, use_container_width=True, hide_index=True)
-
-# ══════════════════════════════════════════════════════════════════════════
-# TAB 0: ABOUT & USER GUIDE (first tab in Row 1)
-# ══════════════════════════════════════════════════════════════════════════
-with tab0:
-    # ── Platform Hero ──────────────────────────────────────────────────
-    st.markdown(f"""
-    <div style="background: linear-gradient(135deg, {COLORS['dark_blue']}, {COLORS['medium_blue']}, #1a3a5c);
-                border: 2px solid {COLORS['accent_gold']}; border-radius: 14px;
-                padding: 2.5rem; margin-bottom: 1.5rem; text-align: center;">
-        <div style="font-size: 4rem; margin-bottom: 0.5rem;">🏔️</div>
-        <h1 style="color:{COLORS['accent_gold']}; font-family:'Playfair Display',serif;
-                   font-size: 2.2rem; margin: 0.3rem 0;">Options Greeks Lab</h1>
-        <p style="color:{COLORS['light_blue']}; font-size: 1.1rem; margin: 0.5rem 0;">
-            A comprehensive interactive platform for learning and applying the Black-Scholes-Merton framework
-        </p>
-        <p style="color:{COLORS['text_secondary']}; font-size: 0.85rem; margin-top: 1rem;">
-            Designed for MBA · CFA · FRM · Financial Derivatives students and practitioners
-        </p>
-        <div style="margin-top: 1.5rem; display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
-            <span style="background: rgba(255,215,0,0.12); border: 1px solid {COLORS['accent_gold']};
-                         border-radius: 20px; padding: 0.4rem 1.2rem; color: {COLORS['accent_gold']}; font-size: 0.85rem;">
-                ⚡ Live BSM Calculator
-            </span>
-            <span style="background: rgba(255,215,0,0.12); border: 1px solid {COLORS['accent_gold']};
-                         border-radius: 20px; padding: 0.4rem 1.2rem; color: {COLORS['accent_gold']}; font-size: 0.85rem;">
-                🌐 3D Greek Surfaces
-            </span>
-            <span style="background: rgba(255,215,0,0.12); border: 1px solid {COLORS['accent_gold']};
-                         border-radius: 20px; padding: 0.4rem 1.2rem; color: {COLORS['accent_gold']}; font-size: 0.85rem;">
-                💰 P&L Simulation
-            </span>
-            <span style="background: rgba(255,215,0,0.12); border: 1px solid {COLORS['accent_gold']};
-                         border-radius: 20px; padding: 0.4rem 1.2rem; color: {COLORS['accent_gold']}; font-size: 0.85rem;">
-                🎓 Education Hub
-            </span>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-    # ── About the Platform ──────────────────────────────────────────────
-    section_title("🏔️ About The Mountain Path — World of Finance")
-
-    col_about1, col_about2 = st.columns([2, 1])
-    with col_about1:
-        st.markdown(f"""
-        <div class="info-box">
-            <h4 style='color:{COLORS['accent_gold']};margin-top:0;'>Our Mission</h4>
-            <p style="color:{COLORS['text_primary']};line-height:1.8;margin:0 0 0.8rem;">
-            The Mountain Path is an educational finance platform built to bridge the gap between
-            textbook theory and practical application. Every tool, chart, and simulation on this
-            platform is designed to make complex quantitative finance concepts intuitive and
-            immediately actionable.</p>
-            <p style="color:{COLORS['text_primary']};line-height:1.8;margin:0 0 0.8rem;">
-            This <b>Options Greeks Lab</b> is the definitive interactive environment for understanding
-            the Black-Scholes-Merton pricing framework — from basic call/put pricing to advanced
-            3D sensitivity surfaces and real-world P&L simulation.</p>
-            <p style="color:{COLORS['text_primary']};line-height:1.8;margin:0;">
-            <b>Pedagogy:</b> Learn by doing. Every parameter change on the sidebar instantly updates
-            all 7 tabs — so you see, in real time, how a change in volatility ripples through Delta,
-            reshapes the 3D surface, and shifts your P&L breakeven.</p>
-        </div>""", unsafe_allow_html=True)
-
-    with col_about2:
-        st.markdown(f"""
-        <div style="background: {COLORS['card_bg']}; border: 1px solid {COLORS['accent_gold']};
-                    border-radius: 10px; padding: 1.5rem; text-align: center;">
-            <div style="font-size: 2.5rem;">👨‍🏫</div>
-            <p style="color:{COLORS['accent_gold']}; font-family:'Playfair Display',serif;
-                      font-weight:700; font-size:1rem; margin: 0.5rem 0;">
-                Prof. V. Ravichandran
-            </p>
-            <p style="color:{COLORS['text_secondary']}; font-size:0.78rem; line-height:1.6;">
-                28+ Years Corporate Finance & Banking Experience<br>
-                10+ Years Academic Excellence<br><br>
-                Visiting Faculty: BITS Pilani WILP · Christ University ·
-                Goa Institute of Management · ICFAI Bangalore
-            </p>
-            <div style="margin-top:1rem; border-top:1px solid rgba(255,215,0,0.2); padding-top:1rem;">
-                <a href="{BRANDING['linkedin']}" target="_blank"
-                   style="color:{COLORS['accent_gold']};text-decoration:none;font-size:0.85rem;">
-                    🔗 LinkedIn Profile
-                </a><br>
-                <a href="{BRANDING['github']}" target="_blank"
-                   style="color:{COLORS['accent_gold']};text-decoration:none;font-size:0.85rem;">
-                    💻 GitHub Projects
-                </a>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-
-    # ── Target Audience ─────────────────────────────────────────────────
-    section_title("🎯 Who Is This Platform For?")
-    col_a, col_b, col_c, col_d = st.columns(4)
-    audiences = [
-        ("🎓", "MBA Students", "Financial Derivatives, Investment Banking, Capital Markets modules"),
-        ("📊", "CFA Candidates", "Level 1–3 derivatives, options pricing, risk management"),
-        ("⚠️", "FRM Students", "Market risk, options risk measures, Greeks hedging"),
-        ("💼", "Practitioners", "Traders, risk managers, quant analysts seeking intuition"),
-    ]
-    for col, (icon, title, desc) in zip([col_a, col_b, col_c, col_d], audiences):
-        with col:
-            st.markdown(f"""
-            <div style="background:{COLORS['card_bg']};border:1px solid rgba(255,215,0,0.25);
-                        border-radius:10px;padding:1.2rem;text-align:center;height:170px;">
-                <div style="font-size:2rem;">{icon}</div>
-                <p style="color:{COLORS['accent_gold']};font-weight:700;font-size:0.9rem;margin:0.4rem 0;">{title}</p>
-                <p style="color:{COLORS['text_secondary']};font-size:0.75rem;line-height:1.5;">{desc}</p>
-            </div>
-            """, unsafe_allow_html=True)
-
-    # ── Features Overview ───────────────────────────────────────────────
-    section_title("✨ Platform Features")
-    features = [
-        ("📈", "Greek Profiles", "Six interactive charts — Delta, Gamma, Vega, Theta, Rho, Price vs Spot. Plus Greeks vs Volatility and vs Time to Expiry."),
-        ("🌐", "3D Surfaces", "Rotate and explore any Greek or price as a 3D surface. Choose any two axes from Spot, Vol, Time. Ideal for intuition building."),
-        ("💰", "P&L Simulation", "Multi-horizon P&L curves at expiry, 75%, 50%, 25% and 1-day. Scenario grid: 7 vol changes × 11 spot moves."),
-        ("📊", "Sensitivity Table", "Bump-and-reprice for all parameters. See exact ₹ and % impact of each market move on option price."),
-        ("📚", "Theory & Code", "BSM formulae, assumptions, Python implementation and Excel model architecture in one place."),
-        ("🗺️", "About & User Guide", "Step-by-step instructions, FAQs, and tips for getting the most from the platform."),
-        ("🎓", "Education Hub", "Deep-dive educational content on every Greek — concept, formula, behaviour, trading implications, and worked examples."),
-    ]
-    for i in range(0, len(features), 3):
-        cols_f = st.columns(3)
-        for j, col in enumerate(cols_f):
-            if i+j < len(features):
-                icon, title, desc = features[i+j]
-                with col:
-                    st.markdown(f"""
-                    <div style="background:{COLORS['card_bg']};border:1px solid rgba(255,215,0,0.2);
-                                border-left:4px solid {COLORS['accent_gold']};border-radius:10px;
-                                padding:1.2rem;margin:0.5rem 0;min-height:140px;">
-                        <div style="font-size:1.8rem;margin-bottom:0.4rem;">{icon}</div>
-                        <p style="color:{COLORS['accent_gold']};font-weight:700;font-size:0.95rem;margin:0 0 0.4rem;">{title}</p>
-                        <p style="color:{COLORS['text_secondary']};font-size:0.8rem;line-height:1.6;margin:0;">{desc}</p>
-                    </div>
-                    """, unsafe_allow_html=True)
-
-    # ── Step-by-Step User Guide ─────────────────────────────────────────
-    section_title("📖 Step-by-Step User Guide")
-
-    guide_steps = [
-        ("Step 1 — Set Your Parameters (Sidebar)",
-         """<p>The <b>left sidebar</b> is the control centre. All tabs update instantly when you change any value.</p>
-         <ul>
-           <li><b>Spot Price (S):</b> Current market price of the underlying (e.g., NIFTY 50 index level)</li>
-           <li><b>Strike Price (K):</b> The exercise price of the option</li>
-           <li><b>Time to Expiry (days):</b> Calendar days remaining until expiration</li>
-           <li><b>Volatility σ:</b> Implied or historical volatility in % per annum (India VIX ≈ 13–18%)</li>
-           <li><b>Risk-Free Rate r:</b> Use RBI repo rate (~6.5%) or 91-day T-bill yield</li>
-           <li><b>Option Type:</b> Call (right to buy) or Put (right to sell)</li>
-         </ul>"""),
-        ("Step 2 — Read the Live Metrics Bar",
-         """<p>The <b>8-metric row</b> at the top updates with every parameter change:</p>
-         <ul>
-           <li><b>Option Price:</b> BSM fair value in ₹ with moneyness tag (ITM/ATM/OTM)</li>
-           <li><b>Δ, Γ, ν, Θ, ρ:</b> All five Greeks, live</li>
-           <li><b>d₁ and d₂:</b> The BSM standardised distance measures used in all calculations</li>
-         </ul>
-         <p>💡 <i>Tip: Set S = K (spot equals strike) to see ATM Greeks — most important for exam questions.</i></p>"""),
-        ("Step 3 — Explore Greek Profiles (Tab 1)",
-         """<p>This tab shows all 6 Greek profiles against Spot Price simultaneously:</p>
-         <ul>
-           <li>The <b>gold dashed line</b> marks your current spot</li>
-           <li>The <b>grey dashed line</b> marks the strike price</li>
-           <li>Change T (time) to see how near-expiry collapse sharpens the Delta step function at ATM</li>
-           <li>The bottom charts show Greeks vs Volatility and vs Time — critical for vega exposure</li>
-         </ul>"""),
-        ("Step 4 — Build 3D Intuition (Tab 2)",
-         """<p>The 3D surface is the most powerful learning tool on the platform:</p>
-         <ul>
-           <li>Select a Greek from the sidebar (e.g., <b>Gamma</b>) and choose axes (e.g., Spot × Time)</li>
-           <li><b>Rotate</b> the surface by clicking and dragging</li>
-           <li>Gamma surface: notice the sharp ATM peak near expiry — this is "gamma risk"</li>
-           <li>Theta surface: observe the accelerating decay cliff as expiry approaches</li>
-           <li>Vega surface: flat far from ATM, maximum at ATM — shows where vol risk is concentrated</li>
-         </ul>"""),
-        ("Step 5 — Simulate P&L (Tab 3)",
-         """<p>Enter a realistic trading scenario using the <b>💰 P&L Settings</b> in the sidebar:</p>
-         <ul>
-           <li><b>Lot Size:</b> Number of option contracts in your position. NIFTY lot = 50, BANK NIFTY = 15, FINNIFTY = 40.</li>
-           <li><b>Purchase Price ₹</b> — this is the most important field to understand:</li>
-         </ul>
-         <div style="background:rgba(255,215,0,0.08);border-left:3px solid #FFD700;border-radius:6px;
-                     padding:0.8rem 1.2rem;margin:0.5rem 0 0.8rem 1.5rem;">
-           <p style="margin:0 0 0.5rem;"><b>What is Purchase Price?</b></p>
-           <p style="margin:0 0 0.4rem;">It is the premium you <b>actually paid</b> when you entered your trade — i.e., your cost of buying the option.</p>
-           <p style="margin:0 0 0.6rem;"><b>Enter 0 (default):</b> The lab automatically uses today's live BSM-calculated price as your entry cost. This is the "theoretical" scenario — useful for teaching and exploring Greeks without a specific trade in mind.</p>
-           <p style="margin:0 0 0.6rem;"><b>Enter your actual premium</b> (e.g., ₹180): The P&L chart and scenario grid will show your real-world profit or loss from your actual entry point. All P&L = (Current Price − ₹180) × Lot Size.</p>
-           <p style="margin:0 0 0.4rem;"><b>Example:</b> Yesterday you bought 2 NIFTY ATM call lots at ₹220 each (lot size 50). Enter Purchase Price = 220, Lot Size = 100 (2 × 50). The P&L tab now shows exactly how much you are making or losing today across all spot and vol scenarios.</p>
-           <p style="margin:0;"><b>Breakeven point</b> is automatically calculated: For calls, Breakeven = Strike + Purchase Price. For puts, Breakeven = Strike − Purchase Price. The green dashed line on the P&L chart marks this level.</p>
-         </div>
-         <ul>
-           <li>The <b>5 P&L curves</b> show expected profit at Expiry, 75%T, 50%T, 25%T, and 1-day from now</li>
-           <li>The <b>Scenario Grid</b> is a stress test: rows = vol change (−8% to +16%), columns = spot move (−30% to +30%)</li>
-         </ul>"""
-        ),
-        ("Step 6 — Run Sensitivity Analysis (Tab 4)",
-         """<p>The bump-and-reprice table quantifies exact risk exposures:</p>
-         <ul>
-           <li>Each row shows the ₹ price change for a standard-size shock to one factor</li>
-           <li>Compare <b>Spot +₹1</b> change (≈ Delta) with the Delta in your metrics bar — they match</li>
-           <li>Compare <b>Vol +1%</b> change with Vega × 1 — confirms your Vega calculation</li>
-           <li>The Greek Summary table interprets each Greek in plain English with current values</li>
-         </ul>"""),
-        ("Step 7 — Deep Learning (Tabs 5 & 7)",
-         """<p>Use these two tabs for structured learning:</p>
-         <ul>
-           <li><b>Tab 5 (Theory & Formulae):</b> BSM pricing, assumptions, all Greek formulae, Python code, Excel architecture</li>
-           <li><b>Tab 7 (Greek Education Hub):</b> Deep concept cards for each Greek — intuition, formulae, real-world examples, strategies, worked numericals</li>
-           <li>Study Tab 7 before an exam — covers first principles through advanced second-order effects</li>
-         </ul>"""),
-    ]
-
-    for step_title, step_content in guide_steps:
-        with st.expander(f"📌 {step_title}"):
-            st.markdown(f"""
-            <div style="color:{COLORS['text_primary']};line-height:1.8;font-size:0.9rem;">
-                {step_content}
-            </div>
-            """, unsafe_allow_html=True)
-
-    # ── Quick Reference ──────────────────────────────────────────────────
-    section_title("⚡ Quick Reference — Parameter Cheatsheet")
-    ref_col1, ref_col2 = st.columns(2)
-
-    with ref_col1:
-        st.markdown(f"""
-        <div class="info-box">
-            <h4 style='color:{COLORS["accent_gold"]};margin-top:0;'>📐 Typical Parameter Ranges (Indian Markets)</h4>
-            <ul style="color:{COLORS['text_primary']};line-height:2;margin:0;padding-left:1.2rem;">
-                <li><b>Spot:</b> NIFTY 50 ≈ 22,000–24,000 | BANK NIFTY ≈ 48,000–52,000</li>
-                <li><b>Volatility:</b> India VIX ≈ 12–25% (normal); 30–60% (crisis)</li>
-                <li><b>Risk-Free Rate:</b> RBI Repo ≈ 6.25–6.5% (2024–25)</li>
-                <li><b>Lot Sizes:</b> NIFTY = 50 | BANK NIFTY = 15 | FINNIFTY = 40</li>
-                <li><b>Expiry:</b> Weekly (Thursday) and Monthly contracts available</li>
-            </ul>
-        </div>""", unsafe_allow_html=True)
-
-    with ref_col2:
-        st.markdown(f"""
-        <div class="info-box">
-            <h4 style='color:{COLORS["accent_gold"]};margin-top:0;'>🔖 Moneyness Quick Reference</h4>
-            <ul style="color:{COLORS['text_primary']};line-height:2;margin:0;padding-left:1.2rem;">
-                <li><b>ITM Call:</b> S &gt; K — has intrinsic value; Delta &gt; 0.5</li>
-                <li><b>OTM Call:</b> S &lt; K — only time value; Delta &lt; 0.5</li>
-                <li><b>ATM:</b> S = K — maximum Gamma and Vega; Delta ≈ 0.5</li>
-                <li><b>Deep ITM:</b> Delta → 1; Gamma → 0; behaves like stock</li>
-                <li><b>Deep OTM:</b> Delta → 0; Gamma → 0; all time value only</li>
-            </ul>
-        </div>""", unsafe_allow_html=True)
-
-    # ── FAQs ─────────────────────────────────────────────────────────────
-    section_title("❓ Frequently Asked Questions")
-    faqs = [
-        ("Why doesn't the BSM price match the market price?",
-         "BSM assumes constant volatility and no dividends. Market prices use implied volatility — "
-         "the volatility that makes BSM equal to the traded price. For index options (NIFTY), "
-         "dividend treatment also differs. Use this lab for learning sensitivity relationships, "
-         "not for direct arbitrage pricing."),
-        ("Why is Theta always negative for long options?",
-         "As time passes, the uncertainty about the final outcome decreases — there is less time "
-         "for the option to move into the money. This loss of optionality is captured by Theta. "
-         "Theta decay accelerates as expiry approaches, especially for ATM options. "
-         "Short option sellers benefit — they receive Theta daily."),
-        ("What does a Delta of 0.45 mean practically?",
-         "Your call position behaves like holding 0.45 shares of the underlying. "
-         "A ₹100 rise in the stock increases your call price by approximately ₹45. "
-         "For hedging: to be delta-neutral, sell 0.45 shares for every 1 call you own."),
-        ("Why does Gamma peak at ATM and near expiry?",
-         "Gamma measures how quickly Delta changes. Near expiry, a small spot move can dramatically "
-         "change whether an ATM option finishes in or out of the money — so Delta changes rapidly. "
-         "This is why ATM short options near expiry carry extreme gamma risk (the 'gamma trap')."),
-        ("How should I use the P&L Scenario Grid in practice?",
-         "Think of it as a stress test. Your current position sits at Vol Δ = 0 and Spot = 0%. "
-         "Read: what happens if the market falls 15% AND volatility spikes 12%? "
-         "This is exactly what happens during a market crash. Use this grid before entering trades "
-         "to understand worst-case scenarios and position sizing."),
-        ("What is the difference between Vega and Implied Volatility?",
-         "Vega measures sensitivity of the option price to a 1% change in volatility. "
-         "Implied Volatility (IV) is the volatility input that makes BSM equal to the market price. "
-         "India VIX is a measure of 30-day implied volatility for NIFTY 50 options. "
-         "When VIX rises, option prices rise — Vega tells you by exactly how much."),
-    ]
-    for q, a in faqs:
-        with st.expander(f"🔹 {q}"):
-            st.markdown(f"""
-            <div style="color:{COLORS['text_primary']};font-size:0.9rem;line-height:1.8;
-                        background:rgba(0,51,102,0.3);border-radius:8px;padding:1rem;">
-                {a}
-            </div>
-            """, unsafe_allow_html=True)
-
 
 # ============================================================================
 # ROW 2 TABS — Education & Guides (rendered AFTER all Row 1 tab content)
