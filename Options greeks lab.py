@@ -163,13 +163,49 @@ def apply_styles():
             color: {COLORS['accent_gold']};
         }}
 
+        /* Expander — Streamlit 1.40+ selectors */
+        [data-testid="stExpander"] {{
+            background: {COLORS['card_bg']} !important;
+            border: 1px solid rgba(255,215,0,0.35) !important;
+            border-radius: 10px !important;
+            margin-bottom: 0.5rem !important;
+        }}
+        [data-testid="stExpander"] summary {{
+            background: {COLORS['card_bg']} !important;
+            border-radius: 8px !important;
+            padding: 0.7rem 1rem !important;
+        }}
+        [data-testid="stExpander"] summary p,
+        [data-testid="stExpander"] summary span,
+        [data-testid="stExpander"] summary div,
+        [data-testid="stExpander"] summary {{
+            color: {COLORS['accent_gold']} !important;
+            font-weight: 600 !important;
+            font-size: 0.95rem !important;
+        }}
+        [data-testid="stExpander"] summary:hover {{
+            background: rgba(0,51,102,0.6) !important;
+        }}
+        [data-testid="stExpanderDetails"] {{
+            background: rgba(10,22,40,0.5) !important;
+            border-top: 1px solid rgba(255,215,0,0.2) !important;
+            padding: 0.5rem 0 !important;
+        }}
+        [data-testid="stExpanderDetails"] p,
+        [data-testid="stExpanderDetails"] span,
+        [data-testid="stExpanderDetails"] div,
+        [data-testid="stExpanderDetails"] li {{
+            color: {COLORS['text_primary']} !important;
+        }}
+        /* Legacy fallback */
         .streamlit-expanderHeader {{
             background: {COLORS['card_bg']} !important;
-            border: 1px solid {COLORS['accent_gold']} !important;
+            border: 1px solid rgba(255,215,0,0.35) !important;
             border-radius: 8px !important;
         }}
         .streamlit-expanderHeader p,
         .streamlit-expanderHeader span,
+        .streamlit-expanderHeader label,
         .streamlit-expanderHeader div {{
             color: {COLORS['accent_gold']} !important;
             font-weight: 600 !important;
@@ -768,20 +804,23 @@ with tab6:
 
     col_about1, col_about2 = st.columns([2, 1])
     with col_about1:
-        info_box("""
-        <p>The Mountain Path is an educational finance platform built to bridge the gap between
-        textbook theory and practical application. Every tool, chart, and simulation on this
-        platform is designed to make complex quantitative finance concepts intuitive and
-        immediately actionable.</p>
-
-        <p>This <b>Options Greeks Lab</b> is the definitive interactive environment for understanding
-        the Black-Scholes-Merton pricing framework — from basic call/put pricing to advanced
-        3D sensitivity surfaces and real-world P&L simulation.</p>
-
-        <p><b>Pedagogy:</b> Learn by doing. Every parameter change on the sidebar instantly updates
-        all 7 tabs — so you see, in real time, how a change in volatility ripples through Delta,
-        reshapes the 3D surface, and shifts your P&L breakeven.</p>
-        """, title="Our Mission")
+        st.markdown(f"""
+        <div class="info-box">
+            <h4 style='color:{COLORS['accent_gold']};margin-top:0;'>Our Mission</h4>
+            <p style="color:{COLORS['text_primary']};line-height:1.8;margin:0 0 0.8rem;">
+            The Mountain Path is an educational finance platform built to bridge the gap between
+            textbook theory and practical application. Every tool, chart, and simulation on this
+            platform is designed to make complex quantitative finance concepts intuitive and
+            immediately actionable.</p>
+            <p style="color:{COLORS['text_primary']};line-height:1.8;margin:0 0 0.8rem;">
+            This <b>Options Greeks Lab</b> is the definitive interactive environment for understanding
+            the Black-Scholes-Merton pricing framework — from basic call/put pricing to advanced
+            3D sensitivity surfaces and real-world P&L simulation.</p>
+            <p style="color:{COLORS['text_primary']};line-height:1.8;margin:0;">
+            <b>Pedagogy:</b> Learn by doing. Every parameter change on the sidebar instantly updates
+            all 7 tabs — so you see, in real time, how a change in volatility ripples through Delta,
+            reshapes the 3D surface, and shifts your P&L breakeven.</p>
+        </div>""", unsafe_allow_html=True)
 
     with col_about2:
         st.markdown(f"""
@@ -936,26 +975,30 @@ with tab6:
     ref_col1, ref_col2 = st.columns(2)
 
     with ref_col1:
-        info_box("""
-        <ul>
-            <li><b>Spot:</b> NIFTY 50 ≈ 22,000–24,000 | BANK NIFTY ≈ 48,000–52,000</li>
-            <li><b>Volatility:</b> India VIX ≈ 12–25% (normal); 30–60% (crisis)</li>
-            <li><b>Risk-Free Rate:</b> RBI Repo ≈ 6.25–6.5% (2024–25)</li>
-            <li><b>Lot Sizes:</b> NIFTY = 50 | BANK NIFTY = 15 | FINNIFTY = 40</li>
-            <li><b>Expiry:</b> Weekly (Thursday) and Monthly contracts available</li>
-        </ul>
-        """, title="📐 Typical Parameter Ranges (Indian Markets)")
+        st.markdown(f"""
+        <div class="info-box">
+            <h4 style='color:{COLORS["accent_gold"]};margin-top:0;'>📐 Typical Parameter Ranges (Indian Markets)</h4>
+            <ul style="color:{COLORS['text_primary']};line-height:2;margin:0;padding-left:1.2rem;">
+                <li><b>Spot:</b> NIFTY 50 ≈ 22,000–24,000 | BANK NIFTY ≈ 48,000–52,000</li>
+                <li><b>Volatility:</b> India VIX ≈ 12–25% (normal); 30–60% (crisis)</li>
+                <li><b>Risk-Free Rate:</b> RBI Repo ≈ 6.25–6.5% (2024–25)</li>
+                <li><b>Lot Sizes:</b> NIFTY = 50 | BANK NIFTY = 15 | FINNIFTY = 40</li>
+                <li><b>Expiry:</b> Weekly (Thursday) and Monthly contracts available</li>
+            </ul>
+        </div>""", unsafe_allow_html=True)
 
     with ref_col2:
-        info_box("""
-        <ul>
-            <li><b>ITM Call:</b> S &gt; K — has intrinsic value; Delta &gt; 0.5</li>
-            <li><b>OTM Call:</b> S &lt; K — only time value; Delta &lt; 0.5</li>
-            <li><b>ATM:</b> S = K — maximum Gamma and Vega; Delta ≈ 0.5</li>
-            <li><b>Deep ITM:</b> Delta → 1; Gamma → 0; behaves like stock</li>
-            <li><b>Deep OTM:</b> Delta → 0; Gamma → 0; all time value only</li>
-        </ul>
-        """, title="🔖 Moneyness Quick Reference")
+        st.markdown(f"""
+        <div class="info-box">
+            <h4 style='color:{COLORS["accent_gold"]};margin-top:0;'>🔖 Moneyness Quick Reference</h4>
+            <ul style="color:{COLORS['text_primary']};line-height:2;margin:0;padding-left:1.2rem;">
+                <li><b>ITM Call:</b> S &gt; K — has intrinsic value; Delta &gt; 0.5</li>
+                <li><b>OTM Call:</b> S &lt; K — only time value; Delta &lt; 0.5</li>
+                <li><b>ATM:</b> S = K — maximum Gamma and Vega; Delta ≈ 0.5</li>
+                <li><b>Deep ITM:</b> Delta → 1; Gamma → 0; behaves like stock</li>
+                <li><b>Deep OTM:</b> Delta → 0; Gamma → 0; all time value only</li>
+            </ul>
+        </div>""", unsafe_allow_html=True)
 
     # ── FAQs ─────────────────────────────────────────────────────────────
     section_title("❓ Frequently Asked Questions")
@@ -1019,24 +1062,29 @@ with tab7:
 
     # ── Conceptual Foundation ────────────────────────────────────────────
     section_title("📐 What Are the Options Greeks?")
-    info_box("""
-    <p>Options Greeks are <b>partial derivatives</b> of the option pricing function with respect to
-    its input parameters. They measure the sensitivity of an option's price to changes in
-    market conditions — the fundamental tools of options risk management.</p>
-
-    <p>If the option price is <b>V = f(S, K, T, r, σ)</b>, then:</p>
-    <ul>
-        <li><b>Delta (Δ)</b> = ∂V/∂S &nbsp;&nbsp; — sensitivity to spot price</li>
-        <li><b>Gamma (Γ)</b> = ∂²V/∂S² — rate of change of Delta (curvature)</li>
-        <li><b>Vega (ν)</b> = ∂V/∂σ &nbsp;&nbsp; — sensitivity to volatility</li>
-        <li><b>Theta (Θ)</b> = ∂V/∂t &nbsp;&nbsp; — sensitivity to time (decay)</li>
-        <li><b>Rho (ρ)</b> = ∂V/∂r &nbsp;&nbsp;&nbsp;— sensitivity to interest rate</li>
-    </ul>
-    <p>Together they form the <b>Taylor expansion of option P&L</b>:<br>
-    <span style="font-family:monospace;color:#ADD8E6;">
-    ΔP&L ≈ Δ·ΔS + ½Γ·(ΔS)² + ν·Δσ + Θ·Δt + ρ·Δr
-    </span></p>
-    """, title="Conceptual Foundation — The Greeks as Partial Derivatives")
+    st.markdown(f"""
+    <div class="info-box">
+        <h4 style='color:{COLORS["accent_gold"]};margin-top:0;font-family:"Playfair Display",serif;'>
+            Conceptual Foundation — The Greeks as Partial Derivatives</h4>
+        <p style="color:{COLORS['text_primary']};line-height:1.8;margin:0 0 0.8rem;">
+        Options Greeks are <b>partial derivatives</b> of the option pricing function with respect to
+        its input parameters. They measure the sensitivity of an option's price to changes in
+        market conditions — the fundamental tools of options risk management.</p>
+        <p style="color:{COLORS['text_primary']};line-height:1.8;margin:0 0 0.5rem;">
+        If the option price is <b>V = f(S, K, T, r, σ)</b>, then:</p>
+        <ul style="color:{COLORS['text_primary']};line-height:2;margin:0 0 0.8rem;padding-left:1.5rem;">
+            <li><b>Delta (Δ)</b> = ∂V/∂S &nbsp;&nbsp; — sensitivity to spot price</li>
+            <li><b>Gamma (Γ)</b> = ∂²V/∂S² — rate of change of Delta (curvature)</li>
+            <li><b>Vega (ν)</b> = ∂V/∂σ &nbsp;&nbsp; — sensitivity to volatility</li>
+            <li><b>Theta (Θ)</b> = ∂V/∂t &nbsp;&nbsp; — sensitivity to time (decay)</li>
+            <li><b>Rho (ρ)</b> = ∂V/∂r &nbsp;&nbsp;&nbsp;— sensitivity to interest rate</li>
+        </ul>
+        <p style="color:{COLORS['text_primary']};line-height:1.8;margin:0;">
+        Together they form the <b>Taylor expansion of option P&L</b>:<br>
+        <span style="font-family:'Courier New',monospace;color:{COLORS['light_blue']};font-size:1rem;">
+        ΔP&L ≈ Δ·ΔS + ½Γ·(ΔS)² + ν·Δσ + Θ·Δt + ρ·Δr
+        </span></p>
+    </div>""", unsafe_allow_html=True)
 
     # ── DELTA ────────────────────────────────────────────────────────────
     section_title("Δ  Delta — Direction & Hedge Ratio")
@@ -1438,30 +1486,45 @@ with tab7:
     col_id1, col_id2 = st.columns(2)
 
     with col_id1:
-        info_box("""
-        <b>Black-Scholes Partial Differential Equation:</b><br><br>
-        <span style="font-family:monospace;font-size:1rem;color:#ADD8E6;">
-            Θ + ½σ²S²Γ + rSΔ − rV = 0
-        </span><br><br>
-        This links ALL Greeks in one no-arbitrage constraint. For a delta-neutral portfolio (Δ=0):<br>
-        <span style="font-family:monospace;color:#ADD8E6;">
-            Θ + ½σ²S²Γ = rV
-        </span><br><br>
-        Time decay is exactly offset by gamma gain in a risk-free (delta-neutral) portfolio.
-        This is the mathematical foundation of delta-neutral options market-making.
-        """, title="The Master PDE Identity")
+        st.markdown(f"""
+        <div class="info-box">
+            <h4 style='color:{COLORS["accent_gold"]};margin-top:0;'>The Master PDE Identity</h4>
+            <p style="color:{COLORS['text_primary']};line-height:1.8;margin:0 0 0.5rem;">
+            <b>Black-Scholes Partial Differential Equation:</b></p>
+            <div style="background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.3);
+                        border-radius:6px;padding:0.6rem 1rem;font-family:'Courier New',monospace;
+                        font-size:1rem;color:{COLORS['light_blue']};margin:0.5rem 0;text-align:center;">
+                Θ + ½σ²S²Γ + rSΔ − rV = 0
+            </div>
+            <p style="color:{COLORS['text_primary']};line-height:1.8;margin:0.5rem 0;">
+            This links ALL Greeks in one no-arbitrage constraint. For a delta-neutral portfolio (Δ=0):</p>
+            <div style="background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.3);
+                        border-radius:6px;padding:0.5rem 1rem;font-family:'Courier New',monospace;
+                        font-size:0.9rem;color:{COLORS['light_blue']};margin:0.5rem 0;text-align:center;">
+                Θ + ½σ²S²Γ = rV
+            </div>
+            <p style="color:{COLORS['text_primary']};line-height:1.8;margin:0;">
+            Time decay is exactly offset by gamma gain in a risk-free delta-neutral portfolio.
+            This is the mathematical foundation of delta-neutral options market-making.</p>
+        </div>""", unsafe_allow_html=True)
 
     with col_id2:
-        info_box("""
-        <b>Put-Call Parity Greek Relationships:</b><br>
-        • Δ_call − Δ_put = 1 &nbsp; (always)<br>
-        • Γ_call = Γ_put &nbsp; (same parameters)<br>
-        • ν_call = ν_put &nbsp; (same parameters)<br>
-        • Θ_call − Θ_put = −r·K·e<sup>−rT</sup><br>
-        • ρ_call − ρ_put = K·T·e<sup>−rT</sup><br><br>
-        <b>Delta-neutral hedge:</b> # shares to short = Δ × # calls<br>
-        <b>Gamma-neutral:</b> requires trading additional options positions
-        """, title="Key Identities from Put-Call Parity")
+        st.markdown(f"""
+        <div class="info-box">
+            <h4 style='color:{COLORS["accent_gold"]};margin-top:0;'>Key Identities from Put-Call Parity</h4>
+            <p style="color:{COLORS['text_primary']};line-height:2;margin:0 0 0.5rem;">
+            <b>Put-Call Parity Greek Relationships:</b></p>
+            <ul style="color:{COLORS['text_primary']};line-height:2;margin:0 0 0.8rem;padding-left:1.2rem;">
+                <li>Δ_call − Δ_put = 1 &nbsp; (always, no exceptions)</li>
+                <li>Γ_call = Γ_put &nbsp; (same parameters)</li>
+                <li>ν_call = ν_put &nbsp; (same parameters)</li>
+                <li>Θ_call − Θ_put = −r·K·e<sup>−rT</sup></li>
+                <li>ρ_call − ρ_put = K·T·e<sup>−rT</sup></li>
+            </ul>
+            <p style="color:{COLORS['text_primary']};line-height:1.8;margin:0;">
+            <b>Delta-neutral hedge:</b> # shares to short = Δ × # calls<br>
+            <b>Gamma-neutral:</b> requires trading additional options positions</p>
+        </div>""", unsafe_allow_html=True)
 
     # ── Master Greeks Table ───────────────────────────────────────────────
     section_title("📋 Complete Greeks Reference Table")
@@ -1505,34 +1568,38 @@ with tab7:
     exam_col1, exam_col2 = st.columns(2)
 
     with exam_col1:
-        info_box("""
-        <ol>
-            <li>ATM call Δ ≈ 0.5; ATM put Δ ≈ −0.5</li>
-            <li>Deep ITM call: Δ → 1 | Deep OTM call: Δ → 0</li>
-            <li>Γ is ALWAYS positive for long options</li>
-            <li>Θ is ALWAYS negative for long options</li>
-            <li>ν is ALWAYS positive for long options</li>
-            <li>Γ = 0 at expiry for ITM/OTM; spikes at ATM</li>
-            <li>Long Γ pays Θ; Short Γ earns Θ (core trade-off)</li>
-            <li>ATM options most sensitive to volatility (max ν)</li>
-            <li>ρ least important for short-dated equity options</li>
-            <li>Δ_call − Δ_put = 1 (Put-Call Parity, always)</li>
-        </ol>
-        """, title="🔟 Must-Know Facts for Exams")
+        st.markdown(f"""
+        <div class="info-box">
+            <h4 style='color:{COLORS["accent_gold"]};margin-top:0;'>🔟 Must-Know Facts for Exams</h4>
+            <ol style="color:{COLORS['text_primary']};line-height:2;margin:0;padding-left:1.3rem;">
+                <li>ATM call Δ ≈ 0.5; ATM put Δ ≈ −0.5</li>
+                <li>Deep ITM call: Δ → 1 | Deep OTM call: Δ → 0</li>
+                <li>Γ is ALWAYS positive for long options</li>
+                <li>Θ is ALWAYS negative for long options</li>
+                <li>ν is ALWAYS positive for long options</li>
+                <li>Γ = 0 at expiry for ITM/OTM; spikes at ATM</li>
+                <li>Long Γ pays Θ; Short Γ earns Θ (core trade-off)</li>
+                <li>ATM options most sensitive to volatility (max ν)</li>
+                <li>ρ least important for short-dated equity options</li>
+                <li>Δ_call − Δ_put = 1 (Put-Call Parity, always)</li>
+            </ol>
+        </div>""", unsafe_allow_html=True)
 
     with exam_col2:
-        info_box("""
-        <ol>
-            <li><b>Price an option:</b> Compute d₁, d₂, N(d₁), N(d₂) → BSM formula</li>
-            <li><b>Delta hedge:</b> Shares = Δ × contracts × lot size</li>
-            <li><b>Vol impact:</b> ΔPrice ≈ ν × Δσ</li>
-            <li><b>Time decay:</b> ΔPrice ≈ Θ × Δdays (always negative for buyer)</li>
-            <li><b>Higher Gamma?</b> ATM beats OTM; shorter expiry beats longer</li>
-            <li><b>Delta-neutral:</b> long options + short/long underlying</li>
-            <li><b>Long vol:</b> Long straddle (long Γ + long ν)</li>
-            <li><b>Breakeven at expiry:</b> K + C (call) | K − P (put)</li>
-        </ol>
-        """, title="📝 Common Exam Question Approaches")
+        st.markdown(f"""
+        <div class="info-box">
+            <h4 style='color:{COLORS["accent_gold"]};margin-top:0;'>📝 Common Exam Question Approaches</h4>
+            <ol style="color:{COLORS['text_primary']};line-height:2;margin:0;padding-left:1.3rem;">
+                <li><b>Price an option:</b> Compute d₁, d₂, N(d₁), N(d₂) → BSM formula</li>
+                <li><b>Delta hedge:</b> Shares = Δ × contracts × lot size</li>
+                <li><b>Vol impact:</b> ΔPrice ≈ ν × Δσ</li>
+                <li><b>Time decay:</b> ΔPrice ≈ Θ × Δdays (always negative for buyer)</li>
+                <li><b>Higher Gamma?</b> ATM beats OTM; shorter expiry beats longer</li>
+                <li><b>Delta-neutral:</b> long options + short/long underlying</li>
+                <li><b>Long vol:</b> Long straddle (long Γ + long ν)</li>
+                <li><b>Breakeven at expiry:</b> K + C (call) | K − P (put)</li>
+            </ol>
+        </div>""", unsafe_allow_html=True)
 
     # ── Worked Numericals ─────────────────────────────────────────────────
     section_title("🔢 Worked Numerical Examples")
