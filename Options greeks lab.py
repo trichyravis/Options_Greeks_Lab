@@ -440,17 +440,18 @@ for col, (lbl, val, sub) in zip(cols, metrics_data):
         metric_card(lbl, val, sub)
 
 # ============================================================================
-# ROW 1 TABS — Analytical Tools (5 tabs)
+# ROW 1 TABS — About + Analytical Tools (6 tabs)
 # ============================================================================
 st.markdown(f"""
 <div style="margin-bottom:-1rem;">
     <p style="color:{COLORS['text_secondary']};font-size:0.72rem;letter-spacing:1.5px;
               text-transform:uppercase;margin:0 0 0.3rem;font-weight:600;">
-        📊 Analytics & Modelling
+        🗺️ About &nbsp;·&nbsp; 📊 Analytics & Modelling
     </p>
 </div>""", unsafe_allow_html=True)
 
-tab1, tab2, tab3, tab4, tab5 = st.tabs([
+tab0, tab1, tab2, tab3, tab4, tab5 = st.tabs([
+    "🗺️ About & User Guide",
     "📈 Greek Profiles",
     "🌐 3D Surfaces",
     "💰 P&L Simulation",
@@ -533,7 +534,7 @@ st.markdown(f"""
 
 row2_tab = st.radio(
     "Reference Tabs",
-    ["🗺️ About & User Guide", "🎓 Greek Education Hub", "📊 Excel Formula Guide"],
+    ["🎓 Greek Education Hub", "📊 Excel Formula Guide"],
     horizontal=True,
     label_visibility="collapsed",
     key="row2_tabs"
@@ -861,9 +862,9 @@ print(f"Price: ₹{res['price']:.2f}  |  Delta: {res['delta']:.4f}  |  Vega: {re
     st.dataframe(excel_df, use_container_width=True, hide_index=True)
 
 # ══════════════════════════════════════════════════════════════════════════
-# ROW 2 — TAB A: ABOUT & USER GUIDE
+# TAB 0: ABOUT & USER GUIDE (first tab in Row 1)
 # ══════════════════════════════════════════════════════════════════════════
-if row2_tab == "🗺️ About & User Guide":
+with tab0:
     # ── Platform Hero ──────────────────────────────────────────────────
     st.markdown(f"""
     <div style="background: linear-gradient(135deg, {COLORS['dark_blue']}, {COLORS['medium_blue']}, #1a3a5c);
@@ -1154,7 +1155,7 @@ if row2_tab == "🗺️ About & User Guide":
 
 
 # ══════════════════════════════════════════════════════════════════════════
-# ROW 2 — TAB B: EDUCATIONAL PLATFORM — OPTIONS GREEKS IN DETAIL
+# ROW 2 — TAB A: EDUCATIONAL PLATFORM — OPTIONS GREEKS IN DETAIL
 # ══════════════════════════════════════════════════════════════════════════
 if row2_tab == "🎓 Greek Education Hub":
 
