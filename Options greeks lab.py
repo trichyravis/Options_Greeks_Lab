@@ -472,56 +472,61 @@ st.markdown(f"""
 # Styled radio as second tab row
 st.markdown(f"""
 <style>
-    div[data-testid="stHorizontalBlock"] div[data-testid="stRadio"] > div {{
-        display: flex; flex-direction: row; gap: 8px; flex-wrap: wrap;
-    }}
-    div[data-testid="stHorizontalBlock"] div[data-testid="stRadio"] label {{
-        background: {COLORS['card_bg']};
-        border: 1px solid rgba(255,215,0,0.3);
-        border-radius: 8px;
-        padding: 0.45rem 1rem;
-        color: {COLORS['text_primary']} !important;
-        font-size: 0.88rem;
-        cursor: pointer;
-        transition: all 0.2s;
-    }}
-    div[data-testid="stHorizontalBlock"] div[data-testid="stRadio"] label:hover {{
-        background: rgba(0,51,102,0.6);
-        border-color: {COLORS['accent_gold']};
-    }}
-    /* Radio row — hide the actual radio dot */
+    /* ── Hide the radio widget label ── */
     div[data-testid="stRadio"] [data-testid="stWidgetLabel"] {{
-        display: none;
+        display: none !important;
     }}
+    /* ── Hide the radio dot/circle ── */
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label > div:first-child {{
+        display: none !important;
+    }}
+    /* ── Horizontal layout ── */
     div[data-testid="stRadio"] > div[role="radiogroup"] {{
+        display: flex !important;
         flex-direction: row !important;
-        gap: 8px;
-        flex-wrap: wrap;
+        gap: 10px !important;
+        flex-wrap: wrap !important;
+        align-items: center !important;
     }}
+    /* ── Unselected tab button ── */
     div[data-testid="stRadio"] > div[role="radiogroup"] > label {{
         background: {COLORS['card_bg']} !important;
-        border: 1px solid rgba(255,215,0,0.3) !important;
+        border: 1px solid rgba(255,215,0,0.35) !important;
         border-radius: 8px !important;
-        padding: 0.45rem 1.1rem !important;
-        color: {COLORS['text_primary']} !important;
-        font-size: 0.88rem !important;
+        padding: 0.5rem 1.2rem !important;
         cursor: pointer !important;
         margin: 0 !important;
         min-height: unset !important;
+        transition: all 0.15s ease !important;
     }}
-    div[data-testid="stRadio"] > div[role="radiogroup"] > label[data-selected="true"],
+    /* ── Unselected: ALL text inside label → light/white ── */
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label p,
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label span,
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label div {{
+        color: {COLORS['text_primary']} !important;
+        font-size: 0.9rem !important;
+        font-weight: 500 !important;
+    }}
+    /* ── Hover state ── */
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label:hover {{
+        background: rgba(0,51,102,0.7) !important;
+        border-color: {COLORS['accent_gold']} !important;
+    }}
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label:hover p,
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label:hover span,
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label:hover div {{
+        color: {COLORS['accent_gold']} !important;
+    }}
+    /* ── Selected tab: gold border + gold text ── */
     div[data-testid="stRadio"] > div[role="radiogroup"] > label:has(input:checked) {{
         background: {COLORS['dark_blue']} !important;
         border: 2px solid {COLORS['accent_gold']} !important;
+    }}
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label:has(input:checked) p,
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label:has(input:checked) span,
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label:has(input:checked) div {{
         color: {COLORS['accent_gold']} !important;
-        font-weight: 600 !important;
-    }}
-    div[data-testid="stRadio"] > div[role="radiogroup"] > label > div > p {{
-        color: inherit !important;
-        font-size: 0.88rem !important;
-    }}
-    div[data-testid="stRadio"] > div[role="radiogroup"] > label > div:first-child {{
-        display: none !important;
+        font-weight: 700 !important;
     }}
 </style>
 """, unsafe_allow_html=True)
