@@ -459,87 +459,6 @@ tab0, tab1, tab2, tab3, tab4, tab5 = st.tabs([
     "📚 Theory & Formulae",
 ])
 
-# ============================================================================
-# ROW 2 TABS — Reference & Education (3 tabs, styled radio as tab row)
-# ============================================================================
-st.markdown(f"""
-<div style="margin-top:1.2rem;margin-bottom:-0.5rem;">
-    <p style="color:{COLORS['text_secondary']};font-size:0.72rem;letter-spacing:1.5px;
-              text-transform:uppercase;margin:0 0 0.3rem;font-weight:600;">
-        📖 Reference, Education & Guides
-    </p>
-</div>""", unsafe_allow_html=True)
-
-# Styled radio as second tab row
-st.markdown(f"""
-<style>
-    /* ── Hide the radio widget label ── */
-    div[data-testid="stRadio"] [data-testid="stWidgetLabel"] {{
-        display: none !important;
-    }}
-    /* ── Hide the radio dot/circle ── */
-    div[data-testid="stRadio"] > div[role="radiogroup"] > label > div:first-child {{
-        display: none !important;
-    }}
-    /* ── Horizontal layout ── */
-    div[data-testid="stRadio"] > div[role="radiogroup"] {{
-        display: flex !important;
-        flex-direction: row !important;
-        gap: 10px !important;
-        flex-wrap: wrap !important;
-        align-items: center !important;
-    }}
-    /* ── Unselected tab button ── */
-    div[data-testid="stRadio"] > div[role="radiogroup"] > label {{
-        background: {COLORS['card_bg']} !important;
-        border: 1px solid rgba(255,215,0,0.35) !important;
-        border-radius: 8px !important;
-        padding: 0.5rem 1.2rem !important;
-        cursor: pointer !important;
-        margin: 0 !important;
-        min-height: unset !important;
-        transition: all 0.15s ease !important;
-    }}
-    /* ── Unselected: ALL text inside label → light/white ── */
-    div[data-testid="stRadio"] > div[role="radiogroup"] > label p,
-    div[data-testid="stRadio"] > div[role="radiogroup"] > label span,
-    div[data-testid="stRadio"] > div[role="radiogroup"] > label div {{
-        color: {COLORS['text_primary']} !important;
-        font-size: 0.9rem !important;
-        font-weight: 500 !important;
-    }}
-    /* ── Hover state ── */
-    div[data-testid="stRadio"] > div[role="radiogroup"] > label:hover {{
-        background: rgba(0,51,102,0.7) !important;
-        border-color: {COLORS['accent_gold']} !important;
-    }}
-    div[data-testid="stRadio"] > div[role="radiogroup"] > label:hover p,
-    div[data-testid="stRadio"] > div[role="radiogroup"] > label:hover span,
-    div[data-testid="stRadio"] > div[role="radiogroup"] > label:hover div {{
-        color: {COLORS['accent_gold']} !important;
-    }}
-    /* ── Selected tab: gold border + gold text ── */
-    div[data-testid="stRadio"] > div[role="radiogroup"] > label:has(input:checked) {{
-        background: {COLORS['dark_blue']} !important;
-        border: 2px solid {COLORS['accent_gold']} !important;
-    }}
-    div[data-testid="stRadio"] > div[role="radiogroup"] > label:has(input:checked) p,
-    div[data-testid="stRadio"] > div[role="radiogroup"] > label:has(input:checked) span,
-    div[data-testid="stRadio"] > div[role="radiogroup"] > label:has(input:checked) div {{
-        color: {COLORS['accent_gold']} !important;
-        font-weight: 700 !important;
-    }}
-</style>
-""", unsafe_allow_html=True)
-
-row2_tab = st.radio(
-    "Reference Tabs",
-    ["🎓 Greek Education Hub", "📊 Excel Formula Guide"],
-    horizontal=True,
-    label_visibility="collapsed",
-    key="row2_tabs"
-)
-
 # ──────────────────────── TAB 1: GREEK PROFILES ───────────────────────────
 with tab1:
     section_title("📈 Greek Sensitivity Profiles")
@@ -1153,6 +1072,79 @@ with tab0:
             </div>
             """, unsafe_allow_html=True)
 
+
+# ============================================================================
+# ROW 2 TABS — Education & Guides (rendered AFTER all Row 1 tab content)
+# ============================================================================
+st.markdown(f"""
+<div style="margin-top:1.5rem;margin-bottom:-0.5rem;">
+    <p style="color:{COLORS['text_secondary']};font-size:0.72rem;letter-spacing:1.5px;
+              text-transform:uppercase;margin:0 0 0.3rem;font-weight:600;">
+        📖 Education &amp; Formula Guides
+    </p>
+</div>""", unsafe_allow_html=True)
+
+st.markdown(f"""
+<style>
+    div[data-testid="stRadio"] [data-testid="stWidgetLabel"] {{
+        display: none !important;
+    }}
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label > div:first-child {{
+        display: none !important;
+    }}
+    div[data-testid="stRadio"] > div[role="radiogroup"] {{
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 10px !important;
+        flex-wrap: wrap !important;
+        align-items: center !important;
+    }}
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label {{
+        background: {COLORS['card_bg']} !important;
+        border: 1px solid rgba(255,215,0,0.35) !important;
+        border-radius: 8px !important;
+        padding: 0.5rem 1.2rem !important;
+        cursor: pointer !important;
+        margin: 0 !important;
+        min-height: unset !important;
+        transition: all 0.15s ease !important;
+    }}
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label p,
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label span,
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label div {{
+        color: {COLORS['text_primary']} !important;
+        font-size: 0.9rem !important;
+        font-weight: 500 !important;
+    }}
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label:hover {{
+        background: rgba(0,51,102,0.7) !important;
+        border-color: {COLORS['accent_gold']} !important;
+    }}
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label:hover p,
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label:hover span,
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label:hover div {{
+        color: {COLORS['accent_gold']} !important;
+    }}
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label:has(input:checked) {{
+        background: {COLORS['dark_blue']} !important;
+        border: 2px solid {COLORS['accent_gold']} !important;
+    }}
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label:has(input:checked) p,
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label:has(input:checked) span,
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label:has(input:checked) div {{
+        color: {COLORS['accent_gold']} !important;
+        font-weight: 700 !important;
+    }}
+</style>
+""", unsafe_allow_html=True)
+
+row2_tab = st.radio(
+    "Education Tabs",
+    ["🎓 Greek Education Hub", "📊 Excel Formula Guide"],
+    horizontal=True,
+    label_visibility="collapsed",
+    key="row2_tabs"
+)
 
 # ══════════════════════════════════════════════════════════════════════════
 # ROW 2 — TAB A: EDUCATIONAL PLATFORM — OPTIONS GREEKS IN DETAIL
