@@ -399,7 +399,20 @@ surface_greek = st.sidebar.selectbox("Greek for Surface", ["Delta","Gamma","Vega
 
 sidebar_label("💰 P&L Settings")
 lot_size      = st.sidebar.number_input("Lot Size (contracts)", 1, 10000, 50)
-purchase_price= st.sidebar.number_input("Purchase Price ₹ (0=current)", 0.0, 10000.0, 0.0, 0.5)
+purchase_price= st.sidebar.number_input("Purchase Price ₹", 0.0, 10000.0, 0.0, 0.5)
+st.sidebar.markdown(f"""
+<div style="background:rgba(255,215,0,0.07);border:1px solid rgba(255,215,0,0.25);
+     border-radius:6px;padding:0.6rem 0.8rem;margin-top:-0.3rem;">
+    <p style="color:{COLORS['accent_gold']};font-size:0.75rem;font-weight:700;margin:0 0 0.2rem;">
+        📌 What is Purchase Price?</p>
+    <p style="color:{COLORS['text_primary']};font-size:0.72rem;line-height:1.5;margin:0;">
+        The price you <b>actually paid</b> for the option when you entered the trade.<br><br>
+        <b>Enter 0</b> → Lab uses today's live BSM price as your cost (theoretical entry).<br><br>
+        <b>Enter your actual premium</b> → P&L tab shows real profit/loss from your entry point.<br><br>
+        <i>Example: Bought NIFTY call at ₹180 yesterday. Enter 180 here to see your actual P&L today.</i>
+    </p>
+</div>
+""", unsafe_allow_html=True)
 
 T = T_days / 365.0
 res = bsm(S, K, T, r, sigma, opt_type)
@@ -937,14 +950,25 @@ with tab6:
            <li>Vega surface: flat far from ATM, maximum at ATM — shows where vol risk is concentrated</li>
          </ul>"""),
         ("Step 5 — Simulate P&L (Tab 3)",
-         """<p>Enter a realistic trading scenario:</p>
+         """<p>Enter a realistic trading scenario using the <b>💰 P&L Settings</b> in the sidebar:</p>
          <ul>
-           <li>Set <b>Lot Size</b> to your position size (NIFTY lot = 50 contracts)</li>
-           <li>Set <b>Purchase Price</b> to what you paid; leave 0 to use current BSM price</li>
-           <li>The 5 P&L curves show expected profit at different time horizons</li>
-           <li>The <b>scenario grid</b> is a stress test: spot moves ±30% × vol shocks ±16%</li>
-           <li>Verify: Breakeven = Strike + Premium (calls) / Strike − Premium (puts)</li>
-         </ul>"""),
+           <li><b>Lot Size:</b> Number of option contracts in your position. NIFTY lot = 50, BANK NIFTY = 15, FINNIFTY = 40.</li>
+           <li><b>Purchase Price ₹</b> — this is the most important field to understand:</li>
+         </ul>
+         <div style="background:rgba(255,215,0,0.08);border-left:3px solid #FFD700;border-radius:6px;
+                     padding:0.8rem 1.2rem;margin:0.5rem 0 0.8rem 1.5rem;">
+           <p style="margin:0 0 0.5rem;"><b>What is Purchase Price?</b></p>
+           <p style="margin:0 0 0.4rem;">It is the premium you <b>actually paid</b> when you entered your trade — i.e., your cost of buying the option.</p>
+           <p style="margin:0 0 0.6rem;"><b>Enter 0 (default):</b> The lab automatically uses today's live BSM-calculated price as your entry cost. This is the "theoretical" scenario — useful for teaching and exploring Greeks without a specific trade in mind.</p>
+           <p style="margin:0 0 0.6rem;"><b>Enter your actual premium</b> (e.g., ₹180): The P&L chart and scenario grid will show your real-world profit or loss from your actual entry point. All P&L = (Current Price − ₹180) × Lot Size.</p>
+           <p style="margin:0 0 0.4rem;"><b>Example:</b> Yesterday you bought 2 NIFTY ATM call lots at ₹220 each (lot size 50). Enter Purchase Price = 220, Lot Size = 100 (2 × 50). The P&L tab now shows exactly how much you are making or losing today across all spot and vol scenarios.</p>
+           <p style="margin:0;"><b>Breakeven point</b> is automatically calculated: For calls, Breakeven = Strike + Purchase Price. For puts, Breakeven = Strike − Purchase Price. The green dashed line on the P&L chart marks this level.</p>
+         </div>
+         <ul>
+           <li>The <b>5 P&L curves</b> show expected profit at Expiry, 75%T, 50%T, 25%T, and 1-day from now</li>
+           <li>The <b>Scenario Grid</b> is a stress test: rows = vol change (−8% to +16%), columns = spot move (−30% to +30%)</li>
+         </ul>"""
+        ),
         ("Step 6 — Run Sensitivity Analysis (Tab 4)",
          """<p>The bump-and-reprice table quantifies exact risk exposures:</p>
          <ul>
